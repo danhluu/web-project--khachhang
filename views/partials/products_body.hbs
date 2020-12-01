@@ -1,0 +1,28 @@
+<!-- Main -->
+<div id="main">
+    <div class="inner">
+        <h1>Products</h1>
+
+        <div class="image main">
+            <img src="images/banner-image-6-1920x500.jpg" class="img-fluid" alt="" />
+        </div>
+
+        <!-- Products -->
+        <section class="tiles">
+            {{#each products}}
+            <article class="style1">
+                <span class="image">
+                    <img src="{{image}}" alt="" />
+                </span>
+                <a href="/products/{{_id}}">
+                    <h2>{{name}}</h2>
+                    <h3>{{author}}</h3>
+                    <p><strong>{{price}}</strong></p>
+
+                    <p>{{categories}}</p>
+                </a>
+            </article>
+            {{/each}}
+        </section>
+    </div>
+</div>
