@@ -1,0 +1,67 @@
+{{>navbar}}
+<div id="#admin_table">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Giá</th>
+            <th>Thể loại</th>
+            <th>Link ảnh</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <form action="/admin/add" method="POST">
+                <td>
+                   ID tự động
+                </td>
+                <td>
+                    <input id="iname" type="text" name="name" value="Nhập tên">
+                </td>
+                <td>
+                    <input id="iauthor" type="text" name="author" value="Nhập tác giả">
+                </td>
+                <td>
+                    <input id="iprice" type="text" name="price" value="Nhập giá">
+                </td>
+                <td>
+                    <input id="icategories" type="text" name="categories" value="Nhập thể loại">
+                </td>
+                <td>
+                    <input id="iimage" type="url" name="image" value="Nhập link ảnh">
+                </td>
+                <td></td>
+                <td><input type="submit" value="Thêm"></td>
+            </form>
+        </tr>
+        {{#each products}}
+        <tr>
+            <form action="/admin/update" method="POST">
+                <td>
+                    <input id="id" type="text" name="id" value="{{_id}}" readonly >
+                </td>
+                <td>
+                    <input id="name" type="text" name="name" value="{{name}}">
+                </td>
+                <td>
+                    <input id="author" type="text" name="author" value="{{author}}">
+                </td>
+                <td>
+                    <input id="price" type="text" name="price" value="{{price}}">
+                </td>
+                <td>
+                    <input id="categories" type="text" name="categories" value="{{categories}}">
+                </td>
+                <td>
+                    <input id="image" type="url" name="image" value="{{image}}">
+                </td>
+                <td ><a href="admin/delete/{{_id}}">Xóa</a></td>
+                <td><input type="submit" value="Sửa"></td>
+            </form>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+    
+{{>footer}}

@@ -1,5 +1,6 @@
 const productModel = require('../models/productModel');
 
+
 exports.index = async (req, res, next) => {
     // Get books from model
     const products = await productModel.list();
