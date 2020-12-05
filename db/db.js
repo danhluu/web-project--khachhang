@@ -1,8 +1,6 @@
 const uri = 'mongodb+srv://danhluu:seOj2ZZAsWjSgUZq@cluster0.ifyse.mongodb.net/BookStore?retryWrites=true&w=majority'
 const { MongoClient } = require("mongodb");
-
 const client = new MongoClient(uri, { useUnifiedTopology: true });
-
 let database;
 
 async function connectDb(){

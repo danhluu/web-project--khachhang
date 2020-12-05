@@ -1,0 +1,130 @@
+{{>navbar}}
+<!-- Search form -->
+<form class="form-inline active-pink-3 active-pink-4 form-inline filter-form" method="GET" action="/admin">
+    <div class="form-group form-filter justify-content-start" id="searchbar">
+        <input type="text" placeholder="Search"
+            aria-label="Search" name="search">
+    </div>
+    <div class="form-group form-filter">
+        <select class="mdb-select md-form colorful-select dropdown-primary justify-content-center" name="category">
+            <option value="">All</option>
+            {{#each categories}}
+            <option value="{{category}}">{{category}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group form-filter">
+        <input type="submit" value="Tìm kiếm">
+    </div>
+</form>
+<nav>
+    <ul id="pagination-controller"class="pagination justify-content-end">
+        {{#if hasPreviousPage}}
+        <li class="page-item">
+        <a class="page-link" href="/admin?page=1" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="/admin?page={{previousPage}}">{{previousPage}}</a></li>
+        {{/if}}
+        <li class="page-item active"><a class="page-link" href="/admin?page={{currentPage}}">{{currentPage}}</a></li>
+        {{#if hasNextPage}}
+        <li class="page-item"><a class="page-link" href="/admin?page={{nextPage}}">{{nextPage}}</a></li>
+        <li class="page-item">
+        <a class="page-link" href="/admin?page={{totalPage}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+        </li>
+        {{/if}}
+    </ul>
+</nav> 
+<div id="#admin_table">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Giá</th>
+            <th>Thể loại</th>
+            <th>Link ảnh</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <form action="/admin/add" method="POST">
+                <td>
+                   ID tự động
+                </td>
+                <td>
+                    <input id="iname" type="text" name="name" value="Nhập tên">
+                </td>
+                <td>
+                    <input id="iauthor" type="text" name="author" value="Nhập tác giả">
+                </td>
+                <td>
+                    <input id="iprice" type="text" name="price" value="Nhập giá">
+                </td>
+                <td>
+                    <input id="icategories" type="text" name="categories" value="Nhập thể loại">
+                </td>
+                <td>
+                    <input id="iimage" type="url" name="image" value="Nhập link ảnh">
+                </td>
+                <td></td>
+                <td><input type="submit" value="Thêm"></td>
+            </form>
+        </tr>
+        {{#each products}}
+        <tr>
+            <form action="/admin/update" method="POST">
+                <td>
+                    <input id="id" type="text" name="id" value="{{_id}}" readonly >
+                </td>
+                <td>
+                    <input id="name" type="text" name="name" value="{{name}}">
+                </td>
+                <td>
+                    <input id="author" type="text" name="author" value="{{author}}">
+                </td>
+                <td>
+                    <input id="price" type="text" name="price" value="{{price}}">
+                </td>
+                <td>
+                    <input id="categories" type="text" name="categories" value="{{categories}}">
+                </td>
+                <td>
+                    <input id="image" type="url" name="image" value="{{image}}">
+                </td>
+                <td ><a href="admin/delete/{{_id}}">Xóa</a></td>
+                <td><input type="submit" value="Sửa"></td>
+            </form>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+<nav>
+    <ul id="pagination-controller"class="pagination justify-content-end">
+        {{#if hasPreviousPage}}
+        <li class="page-item">
+        <a class="page-link" href="/admin?page=1" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="/admin?page={{previousPage}}">{{previousPage}}</a></li>
+        {{/if}}
+        <li class="page-item active"><a class="page-link" href="/admin?page={{currentPage}}">{{currentPage}}</a></li>
+        {{#if hasNextPage}}
+        <li class="page-item"><a class="page-link" href="/admin?page={{nextPage}}">{{nextPage}}</a></li>
+        <li class="page-item">
+        <a class="page-link" href="/admin?page={{totalPage}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+        </li>
+        {{/if}}
+    </ul>
+</nav> 
+{{>footer}}

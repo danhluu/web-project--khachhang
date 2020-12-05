@@ -1,11 +1,52 @@
 <!-- Main -->
-<div id="main">
+<div id="main">    
     <div class="inner">
         <h1>Products</h1>
 
         <div class="image main">
             <img src="images/banner-image-6-1920x500.jpg" class="img-fluid" alt="" />
         </div>
+            <!-- Search form -->
+            <form class="form-inline active-pink-3 active-pink-4 form-inline filter-form" method="GET" action="/products">
+                <div class="form-group form-filter justify-content-start" id="searchbar">
+                    <input type="text" placeholder="Search"
+                        aria-label="Search" name="search">
+                </div>
+                <div class="form-group form-filter">
+                    <select class="mdb-select md-form colorful-select dropdown-primary justify-content-center" name="category">
+                        <option value="">All</option>
+                        {{#each categories}}
+                        <option value="{{category}}">{{category}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group form-filter">
+                    <input type="submit" value="Tìm kiếm">
+                </div>
+            </form>
+        <nav>
+            <ul id="pagination-controller"class="pagination justify-content-end">
+                {{#if hasPreviousPage}}
+                <li class="page-item">
+                <a class="page-link" href="/products?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="/products?page={{previousPage}}">{{previousPage}}</a></li>
+                {{/if}}
+                <li class="page-item active"><a class="page-link" href="/products?page={{currentPage}}">{{currentPage}}</a></li>
+                {{#if hasNextPage}}
+                <li class="page-item"><a class="page-link" href="/products?page={{nextPage}}">{{nextPage}}</a></li>
+                <li class="page-item">
+                <a class="page-link" href="/products?page={{totalPage}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav> 
 
         <!-- Products -->
         <section class="tiles">
@@ -24,5 +65,30 @@
             </article>
             {{/each}}
         </section>
-    </div>
+
+        <nav>
+            <ul id="pagination-controller"class="pagination justify-content-end">
+                {{#if hasPreviousPage}}
+                <li class="page-item">
+                <a class="page-link" href="/products?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="/products?page={{previousPage}}">{{previousPage}}</a></li>
+                {{/if}}
+                <li class="page-item active"><a class="page-link" href="/products?page={{currentPage}}">{{currentPage}}</a></li>
+                {{#if hasNextPage}}
+                <li class="page-item"><a class="page-link" href="/products?page={{nextPage}}">{{nextPage}}</a></li>
+                <li class="page-item">
+                <a class="page-link" href="/products?page={{totalPage}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+                </li>
+                {{/if}}
+            </ul>
+        </nav> 
+    </div>  
 </div>
+

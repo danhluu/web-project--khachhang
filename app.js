@@ -8,6 +8,7 @@ const { MongoClient } = require("mongodb");
 
 var indexRouter = require('./routes/index');
 var productsRouter=require('./routes/products');
+var adminRouter=require('./routes/admin');
 require('./db/db.js');
 //var productdetailRouter=require('./routes/productdetail');
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
 //app.use('/productdetail',productdetailRouter);
+app.use('/admin',adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
