@@ -1,7 +1,6 @@
 const {db} = require('../db/db');
 const {ObjectId} = require('mongodb');
 
-
 exports.list = async () => {
     console.log('model db');
     const productsCollection = db().collection('bookDetail');
