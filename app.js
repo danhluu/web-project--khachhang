@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,9 +8,10 @@ var logger = require('morgan');
 var hbs=require('hbs');
 const { MongoClient } = require("mongodb");
 
+
 var indexRouter = require('./routes/index');
 var productsRouter=require('./routes/products');
-var adminRouter=require('./routes/admin');
+var userRouter=require('./routes/user');
 require('./db/db.js');
 //var productdetailRouter=require('./routes/productdetail');
 
@@ -27,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
+app.use('/user',userRouter);
 //app.use('/productdetail',productdetailRouter);
-app.use('/admin',adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
