@@ -1,6 +1,5 @@
 const {db} = require('../db/db');
 const {ObjectId} = require('mongodb');
-const cloudinary = require('../utils/cloudinary')
 
 exports.list = async () => {
     console.log('model db');
@@ -58,6 +57,8 @@ exports.get = async (id) => {
 //     const result = await productsCollection.insertOne(updateDoc);
 //     return result;
 // }
+
+
 ////PAGINATION
 const ITEMS_PER_PAGE=30;
 exports.getPage=async(_filter,_nPage,_limit=ITEMS_PER_PAGE)=>{
