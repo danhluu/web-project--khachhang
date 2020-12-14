@@ -5,13 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs=require('hbs');
 const { MongoClient } = require("mongodb");
-
+//init routers
 var indexRouter = require('./routes/index');
 var productsRouter=require('./routes/products');
 var adminRouter=require('./routes/admin');
+//init API routers
+var fetchPageRouter=require('./routes/api/products');
+
 require('./db/db.js');
 //var productdetailRouter=require('./routes/productdetail');
-
 var app = express();
 
 // view engine setup
@@ -25,10 +27,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//routes
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
-//app.use('/productdetail',productdetailRouter);
 app.use('/admin',adminRouter);
+
+//API routes
+app.use('/api/products',fetchPageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

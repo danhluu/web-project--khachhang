@@ -68,6 +68,6 @@ exports.pageInfo=async(_filter,_nPage)=>{
     const nextPage=await (hasNextPage===true?(_nPage+1):_nPage);
     const prePage=await (hasPrePage===true?_nPage-1:_nPage);
     const info={totalBook:totalBook,totalPage:totalPage,hasNextPage:hasNextPage
-        ,hasPreviousPage:hasPrePage,nextPage:nextPage,prePage:prePage,ITEMS_PER_PAGE:ITEMS_PER_PAGE};
+        ,hasPreviousPage:hasPrePage,nextPage:nextPage,previousPage:prePage,ITEMS_PER_PAGE:ITEMS_PER_PAGE};
     return info;
 }

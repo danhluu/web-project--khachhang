@@ -1,5 +1,5 @@
 const productModel = require('../models/productModel');
-
+const queryString = require('query-string');
 
 exports.index = async (req, res, next) => {
     // Get books from model
@@ -23,17 +23,27 @@ exports.getPage= async(req,res,next)=>{
     const categories=await productModel.categories();
     const products=await productModel.getPage(filter,nPage);
     const info=await productModel.pageInfo(filter,nPage);
-    console.log('info',info);
+    const nextQuery={...req.query,page:info.nextPage};
+    const previousQuery={...req.query,page:info.previousPage};
+    const totalQuery={...req.query,page:info.totalPage};
+    const currentQuery={...req.query};
+    const firstQuery={...req.query,page:1};
+    console.log(info);
     res.render('products', {
         title:'Book Store',
         active_products:true,
         categories:categories,
         products:products,
         totalPage:info.totalPage,
+        totalPageQuery:queryString.stringify(totalQuery),
         hasNextPage:info.hasNextPage,
         hasPreviousPage:info.hasPreviousPage,
         nextPage:info.nextPage,
-        previousPage:info.prePage,
-        currentPage:nPage
+        previousPage:info.previousPage,
+        nextPageQuery:queryString.stringify(nextQuery),
+        previousPageQuery:queryString.stringify(previousQuery),
+        currentPage:nPage,
+        currentPageQuery:queryString.stringify(currentQuery),
+        firstPageQuery:queryString.stringify(firstQuery)
     });
 }
