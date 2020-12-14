@@ -18,32 +18,47 @@ exports.get = async (id) => {
     const products = await productsCollection.findOne({_id: ObjectId(id)})
     return products;
 }
-exports.deleteOne=async(id)=>{
-    const productsCollection=db().collection('bookDetail');
-    const product=await productsCollection.deleteOne({_id:ObjectId(id)})
-    return product;
-}
-exports.updateOne=async(bookInfo)=>{
-    const productsCollection = db().collection('bookDetail');
-    const filter = { _id:ObjectId(bookInfo.id)};
-    const options = { upsert: true };
-    const updateDoc = {
-      $set: {
-        name:bookInfo.name,
-        author:bookInfo.author,
-        price:parseInt(bookInfo.price),
-        categories:bookInfo.categories,
-        image:bookInfo.image,
-      },
-    };
-    const result = await productsCollection.updateOne(filter,updateDoc,options);
-    return result;
-}
-exports.addOne=async(bookInfo)=>{
-    const productsCollection = db().collection('bookDetail');
-    const result = await productsCollection.insertOne(bookInfo);
-    return result;
-}
+// exports.deleteOne=async(id)=>{
+//     const productsCollection=db().collection('bookDetail');
+//     const product=await productsCollection.findOne({_id: ObjectId(id)})
+//     await cloudinary.uploader.destroy(product.cloudinary_id)
+//     await productsCollection.deleteOne({_id:ObjectId(id)})
+// }
+// exports.updateOne=async(imgInfo,bookInfo)=>{
+//     const productsCollection = db().collection('bookDetail');
+//     const filter = { _id:ObjectId(bookInfo.id)};
+//     await cloudinary.uploader.destroy(bookInfo.cloudinary_id)
+//     const options = { upsert: true };
+//     const ImageCloudinary = await cloudinary.uploader.upload(imgInfo.path);
+//     const updateDoc = {
+//       $set: {
+//         name:bookInfo.name,
+//         author:bookInfo.author,
+//         price:parseInt(bookInfo.price),
+//         categories:bookInfo.categories,
+//         image:ImageCloudinary.secure_url,
+//         cloudinary_id: ImageCloudinary.public_id,
+//       },
+//     };
+//     const result = await productsCollection.updateOne(filter,updateDoc,options);
+//     return result;
+// }
+// exports.addOne=async(imgInfo,bookInfo)=>{
+//     const productsCollection = db().collection('bookDetail');
+//     const ImageCloudinary = await cloudinary.uploader.upload(imgInfo.path);
+//     const updateDoc = {
+//         name:bookInfo.name,
+//         author:bookInfo.author,
+//         price:parseInt(bookInfo.price),
+//         categories:bookInfo.categories,
+//         image:ImageCloudinary.secure_url,
+//         cloudinary_id: ImageCloudinary.public_id,
+//       }  
+//     const result = await productsCollection.insertOne(updateDoc);
+//     return result;
+// }
+
+
 ////PAGINATION
 const ITEMS_PER_PAGE=30;
 exports.getPage=async(_filter,_nPage,_limit=ITEMS_PER_PAGE)=>{

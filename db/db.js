@@ -1,4 +1,4 @@
-const uri = 'mongodb+srv://danhluu:seOj2ZZAsWjSgUZq@cluster0.ifyse.mongodb.net/BookStore?retryWrites=true&w=majority'
+const uri = process.env.URI;
 const { MongoClient } = require("mongodb");
 const client = new MongoClient(uri, { useUnifiedTopology: true });
 let database;

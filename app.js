@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,7 +10,7 @@ const { MongoClient } = require("mongodb");
 //init routers
 var indexRouter = require('./routes/index');
 var productsRouter=require('./routes/products');
-var adminRouter=require('./routes/admin');
+//var adminRouter=require('./routes/admin');
 //init API routers
 var fetchPageRouter=require('./routes/api/products');
 
@@ -30,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
-app.use('/admin',adminRouter);
+//app.use('/admin',adminRouter);
 
 //API routes
 app.use('/api/products',fetchPageRouter);
