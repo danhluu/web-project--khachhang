@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var hbs=require('hbs');
 const { MongoClient } = require("mongodb");
+<<<<<<< HEAD
 var passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
@@ -20,6 +21,17 @@ var userRouter=require('./routes/user');
 const { RequestTimeout } = require('http-errors');
 require('./db/db.js');
 
+=======
+//init routers
+var indexRouter = require('./routes/index');
+var productsRouter=require('./routes/products');
+//var adminRouter=require('./routes/admin');
+//init API routers
+var fetchPageRouter=require('./routes/api/products');
+
+require('./db/db.js');
+//var productdetailRouter=require('./routes/productdetail');
+>>>>>>> 88ddd1dddb3b9cfa2c4e88f184c65fe26b989703
 var app = express();
 
 // view engine setup
@@ -46,7 +58,8 @@ require('./utils/passport')(passport);
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
 app.use('/user',userRouter);
-
+//API routes
+app.use('/api/products',fetchPageRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
