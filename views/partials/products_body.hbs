@@ -9,7 +9,7 @@
             <!-- Search form -->
             <form id="search-form" class="form-inline active-pink-3 active-pink-4 form-inline filter-form" method="GET">
                 <div class="form-group form-filter justify-content-start" id="searchbar">
-                    <input class="search-box" type="text" placeholder="Search"
+                    <input class="search-box" type="text" placeholder="Search for author or book's name"
                         aria-label="Search" name="search">
                 </div>
                 <div class="form-group form-filter">
@@ -21,8 +21,21 @@
                     </select>
                 </div>
                 <div class="form-group form-filter">
+                    <select class="mdb-select md-form colorful-select dropdown-primary justify-content-center orderby-dropdown" name="orderby">
+                        <option value="1">A to Z</option>
+                        <option value="-1">Z to A</option>
+                    </select>
+                </div>
+                <div class="form-group form-filter justify-content-start" id="price-range">
+                    <input id="minprice" type="number" placeholder="min-price"
+                        aria-label="minprice" name="min-price" min="0" max="200">
+                    <input id="maxprice" type="number" placeholder="max-price"
+                        aria-label="maxprice" name="maxprice" min="0" max="200">
+                </div>
+                <div class="form-group form-filter">
                     <input type="submit" value="Tìm kiếm">
                 </div>
+
             </form>
         <nav>
             <ul class="pagination justify-content-end pagination-controller">

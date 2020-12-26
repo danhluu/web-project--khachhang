@@ -62,19 +62,37 @@ exports.get = async (id) => {
 ////PAGINATION
 const ITEMS_PER_PAGE=30;
 exports.getPage=async(_filter,_nPage,_limit=ITEMS_PER_PAGE)=>{
-    const filter={};
-    filter.name={ '$regex' : _filter.search, '$options' : 'i' };
-    filter.categories={ '$regex' : _filter.category, '$options' : 'i' }
-
+    const name={ '$regex' : _filter.search, '$options' : 'i' };
+    const author={ '$regex' : _filter.search, '$options' : 'i' };
+    const categories={ '$regex' : _filter.category, '$options' : 'i' };
+    const filter={$and:[
+        {$or:
+            [
+                {'name':name},
+                {'author':author}
+            ]},
+        {'categories':categories},
+        {'price':{$gte:_filter.minprice,$lte:_filter.maxprice}}
+    ]
+    };
     const productsCollection = db().collection('bookDetail');
-    const products=await productsCollection.find(filter).limit(_limit).skip(_limit*(_nPage-1)).toArray();
+    const products=await productsCollection.find(filter).sort({name:_filter.orderby}).limit(_limit).skip(_limit*(_nPage-1)).toArray();
     return products;
 }
 
 exports.pageInfo=async(_filter,_nPage)=>{
-    const filter={};
-    filter.name={ '$regex' : _filter.search, '$options' : 'i' };
-    filter.categories={ '$regex' : _filter.category, '$options' : 'i' }
+    const name={ '$regex' : _filter.search, '$options' : 'i' };
+    const author={ '$regex' : _filter.search, '$options' : 'i' };
+    const categories={ '$regex' : _filter.category, '$options' : 'i' };
+    const filter={$and:[
+        {$or:
+            [
+                {'name':name},
+                {'author':author}
+            ]},
+        {'categories':categories}
+    ]
+    };
 
     const totalBook=await db().collection('bookDetail').countDocuments(filter);
     const totalPage=await Math.ceil(totalBook/ITEMS_PER_PAGE);
@@ -85,4 +103,13 @@ exports.pageInfo=async(_filter,_nPage)=>{
     const info={totalBook:totalBook,totalPage:totalPage,hasNextPage:hasNextPage
         ,hasPreviousPage:hasPrePage,nextPage:nextPage,previousPage:prePage,ITEMS_PER_PAGE:ITEMS_PER_PAGE};
     return info;
+}
+
+exports.getSimilar=async(_category,_quantity)=>{
+    const productsCollection = db().collection('bookDetail');
+    const products=await productsCollection.aggregate([
+        { $match: { categories: { '$regex' : _category, '$options' : 'i' } } },
+        { $sample: { size: _quantity } } 
+    ]).toArray();
+    return products;
 }

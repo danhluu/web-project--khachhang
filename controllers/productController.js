@@ -10,7 +10,11 @@ exports.index = async (req, res, next) => {
 };
 
 exports.details = async (req, res, next) => {
-    res.render('product_detail', await productModel.get(req.params.id));
+    const product_detail=await productModel.get(req.params.id);
+    console.log(product_detail);
+    const similar_products=await productModel.getSimilar(product_detail.categories,3);
+    console.log(similar_products);
+    res.render('product_detail',{product_detail:product_detail,similar_products:similar_products});
 }
 
 exports.getPage= async(req,res,next)=>{
@@ -18,6 +22,9 @@ exports.getPage= async(req,res,next)=>{
     const filter={};
     filter.search=req.query.search || "";
     filter.category=req.query.category || "";
+    filter.orderby=parseInt(req.query.orderby) || 1;
+    filter.minprice=parseInt(req.query.minprice) || 0;
+    filter.maxprice=parseInt(req.query.maxprice) || 200;
     //paginate
     const nPage=parseInt(req.query.page) || 1;
     const categories=await productModel.categories();

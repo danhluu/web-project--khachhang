@@ -4,6 +4,15 @@
 .form-filter{
 	margin-right:30px;
 }
+#searchbar{
+	width: 400px;
+}
+.atcBtn{
+	margin-top:20px;
+}
+.cart.page {
+	padding: 25px 0;
+  }
 
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,

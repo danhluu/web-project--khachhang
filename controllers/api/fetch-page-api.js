@@ -6,6 +6,9 @@ exports.fetchData=async(req,res,next)=>{
     const filter={};
     filter.search=req.query.search || "";
     filter.category=req.query.category || "";
+    filter.orderby=parseInt(req.query.orderby) || 1;
+    filter.minprice=parseInt(req.query.minprice) || 0;
+    filter.maxprice=parseInt(req.query.maxprice) || 200;
     //paginate
     const nPage=parseInt(req.query.page) || 1;
     res.json(await productModelAPI.getPage(filter,nPage));
@@ -15,6 +18,8 @@ exports.getPageInfo=async(req,res,next)=>{
         const filter={};
         filter.search=req.query.search || "";
         filter.category=req.query.category || "";
+        filter.minprice=parseInt(req.query.minprice) || 0;
+        filter.maxprice=parseInt(req.query.maxprice) || 200;
         //paginate
         const nPage=parseInt(req.query.page) || 1;
         const info=await productModelAPI.pageInfo(filter,nPage);
