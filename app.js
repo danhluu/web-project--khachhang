@@ -9,10 +9,23 @@ var logger = require('morgan');
 var hbs=require('hbs');
 const { MongoClient } = require("mongodb");
 
+var bodyParser = require('body-parser');
+
+var passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+var flash = require('connect-flash');
+
+var indexRouter = require('./routes/index');
+var productsRouter=require('./routes/products');
+var userRouter=require('./routes/user');
+
+const { RequestTimeout } = require('http-errors');
+require('./db/db.js');
+
 //init routers
 var indexRouter = require('./routes/index');
 var productsRouter=require('./routes/products');
-var productdetailRouter=require('./routes/productdetail');
 var cartRouter=require('./routes/cart');
 //var adminRouter=require('./routes/admin');
 
@@ -20,7 +33,6 @@ var cartRouter=require('./routes/cart');
 var fetchPageRouter=require('./routes/api/products');
 
 require('./db/db.js');
-
 var app = express();
 
 // view engine setup
@@ -28,6 +40,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname,'/views/partials'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.bodyParser());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,15 +60,22 @@ app.use(function(req, res, next) {
   next();
 });
 
-//routes
+app.use(session({secret: "laksjdoiwahfalsnc21983ulkasdn", resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+require('./utils/passport')(passport);
+
+
 app.use('/', indexRouter);
 app.use('/products',productsRouter);
 app.use('/cart',cartRouter);
 //app.use('/admin',adminRouter);
 
+
+app.use('/user',userRouter);
 //API routes
 app.use('/api/products',fetchPageRouter);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
