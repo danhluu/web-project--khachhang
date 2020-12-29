@@ -31,6 +31,7 @@ var cartRouter=require('./routes/cart');
 
 //init API routers
 var fetchPageRouter=require('./routes/api/products');
+var commentsRouter=require('./routes/api/comments');
 
 require('./db/db.js');
 var app = express();
@@ -50,7 +51,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'secret',
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 
@@ -76,6 +77,7 @@ app.use('/cart',cartRouter);
 app.use('/user',userRouter);
 //API routes
 app.use('/api/products',fetchPageRouter);
+app.use('/api/comments',commentsRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
