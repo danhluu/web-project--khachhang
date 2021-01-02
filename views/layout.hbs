@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+        <script src="/socket.io/socket.io.js"></script>
 	</head>
   <body class="is-preload">
 		<!-- Wrapper -->
@@ -53,20 +54,6 @@
 		\{{/with}}
 	</script>
     <script type="text/x-handlebars" id="comment-section-script">
-        <!-- More comments -->
-
-        <li class="write-new">
-            \{{#with comments.[0]}}
-            <form method="POST" onsubmit="return writeComment(this)">
-                <input type="hidden" name="bookId" value="\{{postId}}">
-                <textarea placeholder="Write your name here if you haven't login" name="username"></textarea>
-                <textarea placeholder="Write your comment here" name="comment" required></textarea>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-            \{{/with}}
-        </li>
         \{{#each comments}}
         <li class="comment user-comment">
             <div class="info">

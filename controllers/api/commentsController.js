@@ -9,5 +9,5 @@ exports.writeComment=async(req,res,next)=>{
     res.json(await commentModelAPI.saveComment(postId,username,comment,timestampt));
 }
 exports.loadComment=async(req,res,next)=>{
-    res.json(await commentModelAPI.loadComment(req.body.postId));
+    res.json(await commentModelAPI.loadComment(req.body.postId,req.body.nComment));
 }

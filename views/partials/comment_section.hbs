@@ -4,7 +4,7 @@
 
     <!-- More comments -->
 
-    <li class="write-new">
+    <li id="comment-box" class="write-new">
         {{#with product_detail}}
         <form method="POST" onsubmit="return writeComment(this)">
             <input type="hidden" name="bookId" value="{{_id}}">
@@ -35,6 +35,8 @@
         <p>{{content}}</p>
     </li>
     {{/each}}
-    <li><button>Load more</button></li>
+    {{#with product_detail}}
+    <li id="load-more-button"><button onclick="loadComment('{{_id}}')">Load more</button></li>
+    {{/with}}
 </ul>
 </div>
