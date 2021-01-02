@@ -10,8 +10,8 @@
             <input type="hidden" name="bookId" value="{{_id}}">
             <textarea placeholder="Write your name here if you haven't login" name="username"></textarea>
             <textarea placeholder="Write your comment here" name="comment" required></textarea>
-            <div>
-                <button type="submit">Submit</button>
+            <div class="center-box">
+                <input class="primary" type="submit" value="Submit">
             </div>
         </form>
         {{/with}}
@@ -36,7 +36,7 @@
     </li>
     {{/each}}
     {{#with product_detail}}
-    <li id="load-more-button"><button onclick="loadComment('{{_id}}')">Load more</button></li>
+    <li id="load-more-button" class="center-box-2"><input type="submit" class="primary" value="Load more" onclick="loadComment('{{_id}}')"></li>
     {{/with}}
 </ul>
 </div>

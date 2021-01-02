@@ -14,12 +14,13 @@
 	padding: 25px 0;
   }
 
-  .comment-section{
+.comment-section{
     list-style: none;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
-    margin: 50px auto;
-    padding: 10px;
+    margin: 0px auto;
+	padding: 10px;
+	padding-top: 0px;
 }
 
 .comment{
@@ -51,7 +52,19 @@
 .comment.author-comment .info{
     order: 3;
 }
-
+textarea{
+	margin-bottom: 10px;
+}
+.center-box {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.center-box-2 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 .comment .info a{	/* User name */
     display: block;
@@ -147,7 +160,7 @@
 /* Comment form */
 
 .write-new{
-    margin: 80px auto 0;
+    margin: 25px auto 0;
     width: 50%;
 }
 
