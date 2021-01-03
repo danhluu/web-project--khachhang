@@ -8,10 +8,7 @@ module.exports = function Cart(cart) {
         if (!cartItem) {
             cartItem = this.items[id] = {item: item, quantity: 0, price: 0};
         }
-        cartItem.quantity+=quantity;
-        cartItem.price = cartItem.item.price * cartItem.quantity;
-        this.totalItems+=quantity;
-        this.totalPrice += cartItem.price;
+        this.editQuantity(id,quantity);
     };
 
     this.remove = function(id) {

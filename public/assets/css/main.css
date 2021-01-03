@@ -199,7 +199,14 @@ textarea{
     margin-top: 18px;
 }
 
-
+.search-button{
+	margin-top:10px;
+}
+.number-input{
+	border-radius: 30px;
+	width: 100px;
+	border-color: #d2d2d2;
+}
 
 /* Responsive styles */
 

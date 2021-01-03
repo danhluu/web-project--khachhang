@@ -19,18 +19,18 @@
                     <form method="GET" action="/cart/edit">
                     <input type="hidden" id="bookiD" name="bookiD" value="{{this.item._id}}">
                         <span>Quantity:
-                            <input id="newQ" type="number" placeholder="{{this.quantity}}"
+                            <input id="newQ" type="number" class="primary number-input" placeholder="{{this.quantity}}"
                             aria-label="newQ" name="newQ" min="0" max="200">
-                            <input type="submit" value="Apply">
+                            <input type="submit" class="primary" value="Apply">
                         </span>
                     </form>
                 </div>
                 <div >
-                    
-                   Total price: ${{ this.price }}
+                    <a href="/cart/remove?id={{this.item._id}}"><button class="primary"> Remove</button></a>
+                    <a href="/products/{{this.item._id}}"><button class="primary"> See detail</button></a>
                 </div>
                 <div >
-                    <a href="/cart/remove?id={{this.item._id}}"><button> Remove</button></a>
+                     Total price: ${{ this.price }}
                 </div>
             </li>
             {{/each}}
@@ -41,7 +41,7 @@
     </div>
     <hr>
     <div class="text-right">
-        <a href="#" type="button" class="btn btn-success">Checkout</a>
+        <a href="#" type="button" class="btn btn-success ">Checkout</a>
     </div>
 {{else}}
     Your shopping cart is empty.

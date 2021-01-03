@@ -12,6 +12,11 @@ exports.index = async (req, res, next) => {
 
 exports.details = async (req, res, next) => {
     const product_detail=await productModel.get(req.params.id);
+    if (product_detail.views===null || product_detail.views===undefined){
+        product_detail.views=0;
+    }
+    await productModel.updateViews(req.params.id,product_detail.views);
+    console.log(product_detail);
     const comments=await commentModel.loadComment(req.params.id,1);
     const similar_products=await productModel.getSimilar(product_detail.categories,3);
     res.render('product_detail',{product_detail:product_detail,similar_products:similar_products,comments:comments});

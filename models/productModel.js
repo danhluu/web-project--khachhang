@@ -113,3 +113,23 @@ exports.getSimilar=async(_category,_quantity)=>{
     ]).toArray();
     return products;
 }
+
+exports.updateViews=async(id,_views)=>{
+    _views++;
+    const productsCollection = db().collection('bookDetail');
+    const filter = { _id:ObjectId(id)};
+    const options = { upsert: true };
+    const updateDoc = {
+      $set: {
+        views:_views
+      },
+    };
+    const result = await productsCollection.updateOne(filter,updateDoc,options);
+    return result;
+}
+exports.getMax=async()=>{
+    const productsCollection = db().collection('bookDetail');
+    const products=await productsCollection.find().sort({views:-1}).limit(6).toArray();
+    console.log(products);
+    return products;
+}

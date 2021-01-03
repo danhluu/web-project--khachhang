@@ -35,8 +35,10 @@
         <p>{{content}}</p>
     </li>
     {{/each}}
+    {{#if comments}}
     {{#with product_detail}}
     <li id="load-more-button" class="center-box-2"><input type="submit" class="primary" value="Load more" onclick="loadComment('{{_id}}')"></li>
     {{/with}}
+    {{/if}}
 </ul>
 </div>
