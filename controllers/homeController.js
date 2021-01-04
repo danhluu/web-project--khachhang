@@ -1,8 +1,9 @@
 const productModel = require('../models/productModel');
 
 /* GET home page. */
-exports.index = (req, res, next) => {
-    res.render('index', { title: 'Book Store', active_home: true, user: req.user });
+exports.index = async(req, res, next) => {
+    const products = await productModel.getMax();
+    res.render('index', { title: 'Book Store', active_home: true, products: products, user: req.user });
 }
 
 exports.login = (req, res, next) => {

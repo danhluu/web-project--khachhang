@@ -1,25 +1,22 @@
 const productModel = require('../models/productModel');
 const commentModel = require('../models/commentModel');
 const queryString = require('query-string');
-
-// exports.index = async (req, res, next) => {
-//     // Get books from model
-//     const products = await productModel.list();
-//     console.log('products', products);
-//     // Pass data to view to display list of books
-//     res.render('products', {title:'Book Store',active_products:true,products});
-// };
+const createErr = require('http-errors');
 
 exports.details = async(req, res, next) => {
-    const product_detail = await productModel.get(req.params.id);
-    if (product_detail.views === null || product_detail.views === undefined) {
-        product_detail.views = 0;
+    try {
+        const product_detail = await productModel.get(req.params.id);
+        if (product_detail.views === null || product_detail.views === undefined) {
+            product_detail.views = 0;
+        }
+        await productModel.updateViews(req.params.id, product_detail.views);
+        console.log(product_detail);
+        const comments = await commentModel.loadComment(req.params.id, 1);
+        const similar_products = await productModel.getSimilar(product_detail.categories, 3);
+        res.render('product_detail', { product_detail: product_detail, similar_products: similar_products, comments: comments, user: req.user, active_products: true });
+    } catch (error) {
+        next(createErr(404))
     }
-    await productModel.updateViews(req.params.id, product_detail.views);
-    console.log(product_detail);
-    const comments = await commentModel.loadComment(req.params.id, 1);
-    const similar_products = await productModel.getSimilar(product_detail.categories, 3);
-    res.render('product_detail', { product_detail: product_detail, similar_products: similar_products, comments: comments, user: req.user, active_products: true });
 }
 
 exports.getPage = async(req, res, next) => {

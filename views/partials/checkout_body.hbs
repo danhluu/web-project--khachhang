@@ -41,7 +41,9 @@
     </div>
     <hr>
     <div class="text-right">
-        <a href="#" type="button" class="btn btn-success ">Checkout</a>
+        <form action="/cart/checkout" method="POST" >
+            <input type="submit" class="btn btn-success " value="Check Out"></input>
+        </form>
     </div>
 {{else}}
     Your shopping cart is empty.
