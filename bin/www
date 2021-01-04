@@ -25,6 +25,24 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+//Socket require
+const io = require('socket.io')(server);
+
+//Socket for real-time comments
+io.on("connection", function(socket)
+	{
+		socket.on("disconnect", function()
+			{
+        console.log("socket disconected!!");
+      });
+      
+		socket.on("Client-sent-data", function(data)
+			{
+        console.log(data);
+        io.sockets.emit("Server-sent-data", data);
+			});
+	});
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

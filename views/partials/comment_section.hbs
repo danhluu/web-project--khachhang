@@ -1,0 +1,44 @@
+<div>
+                <h2 class="h2">Comments</h2>
+<ul class="comment-section">
+
+    <!-- More comments -->
+
+    <li id="comment-box" class="write-new">
+        {{#with product_detail}}
+        <form method="POST" onsubmit="return writeComment(this)">
+            <input type="hidden" name="bookId" value="{{_id}}">
+            <textarea placeholder="Write your name here if you haven't login" name="username"></textarea>
+            <textarea placeholder="Write your comment here" name="comment" required></textarea>
+            <div class="center-box">
+                <input class="primary" type="submit" value="Submit">
+            </div>
+        </form>
+        {{/with}}
+
+    </li>
+    {{#each comments}}
+    <li class="comment user-comment">
+        <div class="info">
+            <a href="#">{{username}}</a>
+            <script type="text/javascript">
+                (function convertTimeStampt(){
+                const today = new Date({{timestampt}});
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                document.write("<span>"+ date+' '+time+"</span>");
+                })();
+            </script>
+        </div>
+        <a class="avatar" href="#">
+        </a>
+        <p>{{content}}</p>
+    </li>
+    {{/each}}
+    {{#if comments}}
+    {{#with product_detail}}
+    <li id="load-more-button" class="center-box-2"><input type="submit" class="primary" value="Load more" onclick="loadComment('{{_id}}')"></li>
+    {{/with}}
+    {{/if}}
+</ul>
+</div>

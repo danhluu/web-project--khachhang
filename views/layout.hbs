@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+        <script src="/socket.io/socket.io.js"></script>
 	</head>
   <body class="is-preload">
 		<!-- Wrapper -->
@@ -52,6 +53,19 @@
                 \{{/if}}	
 		\{{/with}}
 	</script>
+    <script type="text/x-handlebars" id="comment-section-script">
+        \{{#each comments}}
+        <li class="comment user-comment">
+            <div class="info">
+                <a href="#">\{{username}}</a>
+                <span>\{{#datetime}}\{{timestampt}}\{{/datetime}}</span>
+            </div>
+            <a class="avatar" href="#">
+            </a>
+            <p>\{{content}}</p>
+        </li>
+        \{{/each}}
+    </script>
     		<!-- Scripts -->
 			<script src="/assets/js/jquery.min.js"></script>
 			<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -59,6 +73,7 @@
 			<script src="/assets/js/jquery.scrollex.min.js"></script>
 			<script src="/assets/js/main.js"></script>
 			<script src="/assets/js/ajax-pagination.js"></script>
+            <script src="/assets/js/ajax-comment.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   </body>
 </html>

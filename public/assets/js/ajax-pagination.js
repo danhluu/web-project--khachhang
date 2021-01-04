@@ -11,7 +11,9 @@ function replacePageHref(info){
 }
 
 function getPageAjax(query){
-    history.pushState({},'','?'+query);
+    const jsonquery=JSON.parse('{"' + decodeURI(query.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}');
+    console.log(jsonquery);
+    history.pushState(jsonquery,'','?'+query);
     $.getJSON('api/products/fetch-page?'+query, 
      function(data) {
          replaceProducts(data);
@@ -22,13 +24,37 @@ function getPageAjax(query){
      }
     );
 }
+function backButtonAjax(query){
+        $.getJSON('api/products/fetch-page?'+query, 
+        function(data) {
+            replaceProducts(data);
+        });
+       $.getJSON('api/products/get-page-info?'+query,
+        function(data){
+            replacePageHref(data);
+        }
+       );
+}
+window.onpopstate = function (event) {
+    if (history.state){
+        const querystr=$.param(history.state);
+        console.log(querystr);
+        backButtonAjax(querystr);
+    }
+    else{
+        history.go();
+    }
+ };
 
 $("#search-form").submit(function(e) {
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
     const search=$('.search-box').val();
-    const category=$('.categories-dropdown').val(); 
-    const query='search='+search+'&category='+category;
+    const category=$('.categories-dropdown').val();
+    const orderby=$('.orderby-dropdown').val(); 
+    const minprice=$('#minprice').val();
+    const maxprice=$('#maxprice').val();
+    const query='orderby='+orderby+'&search='+search+'&category='+'&minprice='+minprice+'&maxprice='+maxprice;
     $.ajax({
            type: "GET",
            data: query, // serializes the form's elements.

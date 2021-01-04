@@ -1,3 +1,5 @@
+const productModel = require('../models/productModel');
+
 /* GET home page. */
 exports.index = (req, res, next) => {
     res.render('index', { title: 'Book Store', active_home: true, user: req.user });

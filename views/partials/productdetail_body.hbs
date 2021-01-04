@@ -1,7 +1,8 @@
 <!-- Main -->
 <div id="main">
     <div class="inner">
-        <h1>{{product.name}}<span class="pull-right"> {{product.price}}</span></h1>
+        {{#with product_detail}}
+        <h1>{{name}}<span class="pull-right"> ${{price}}</span></h1>
         
         <div class="container-fluid">
             <div class="row">
@@ -10,12 +11,12 @@
                 </div>
 
                 <div class="col-md-7">
-                    <p>{{product.author}}</p>
-
-                    <p>{{product.categories}}</p>
-
+                    <p>Author: {{author}}</p>
+                    <p>Price: ${{price}}</p>
+                    <p>Category: {{categories}}</p>
+                    <p>Views: {{views}}</p>
                     <div class="row">
-                        <div class="col-sm-4">
+                        {{!-- <div class="col-sm-4">
                             <label class="control-label">Extra 1</label>
 
                             <div class="form-group">
@@ -25,15 +26,16 @@
                                     <option value="2">Extra 3</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-sm-8">
+                            <form method="GET" action="/products/{{_id}}/add">
                             <label class="control-label">Quantity</label>
 
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input type="text" name="name" id="name">
+                                        <input type="text" name="quantity" id="quantity">
                                     </div>
                                 </div>
 
@@ -41,13 +43,39 @@
                                     <input type="submit" class="primary" value="Add to Cart">
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            {{/with}}
         </div>
+        <br>
+        <br>
+        {{!-- similiar products --}}
+        <div class="container-fluid">
+            <h2 class="h2">Similar Products</h2>
 
+            <!-- Products -->
+            <section class="tiles">
+                {{#each similar_products}}
+                <article class="style1">
+                    <span class="image">
+                        <img src="{{image}}" alt="" />
+                    </span>
+                    <a href="/products/{{_id}}">
+                        <h2>{{name}}</h2>
+                        
+                        <p><strong>${{price}}</strong></p>
+
+                        <p>{{author}} </p>
+                    </a>
+                </article>
+                {{/each}}
+            </section>
+        </div>
         <br>
         <br>
+            {{>comment_section}}
     </div>
 </div>
