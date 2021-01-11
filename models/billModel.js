@@ -17,6 +17,3 @@ exports.createBill = async(req, productBill) => {
 
     }
 }
-
-
-}
