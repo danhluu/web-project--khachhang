@@ -6,9 +6,9 @@ module.exports = function Cart(cart) {
     this.add = function(item, id, quantity) {
         var cartItem = this.items[id];
         if (!cartItem) {
-            cartItem = this.items[id] = {item: item, quantity: 0, price: 0};
+            cartItem = this.items[id] = { item: item, quantity: 0, price: 0 };
         }
-        this.editQuantity(id,quantity);
+        this.editQuantity(id, quantity);
     };
 
     this.remove = function(id) {
@@ -16,7 +16,7 @@ module.exports = function Cart(cart) {
         this.totalPrice -= this.items[id].price;
         delete this.items[id];
     };
-    
+
     this.getItems = function() {
         var arr = [];
         for (var id in this.items) {
@@ -26,17 +26,16 @@ module.exports = function Cart(cart) {
         return arr;
     };
 
-    this.editQuantity=function(id,newQ){
-        if (newQ<=0 || newQ==null){
+    this.editQuantity = function(id, newQ) {
+        if (newQ <= 0 || newQ == null) {
             this.remove(id);
-        }
-        else{
-            const EditItem=this.items[id];
+        } else {
+            const EditItem = this.items[id];
             console.log(EditItem);
-            this.totalPrice=this.totalPrice-EditItem.price+EditItem.item.price*newQ;
-            this.totalItems=this.totalItems-EditItem.quantity+newQ;
-            EditItem.quantity=newQ;
-            EditItem.price=EditItem.item.price*newQ;
+            this.totalPrice = this.totalPrice - EditItem.price + EditItem.item.price * newQ;
+            this.totalItems = this.totalItems - EditItem.quantity + newQ;
+            EditItem.quantity = newQ;
+            EditItem.price = EditItem.item.price * newQ;
         }
     }
 };

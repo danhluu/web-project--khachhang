@@ -4,10 +4,10 @@
         <h1>Checkout</h1>
     </div>
     <div class="inner">
-        {{# if products }}
+        {{#if products }}
     <div class="cart page">
         <ul class="list-group">
-            {{# each products }}
+            {{#each products }}
             <li class="list-group-item clearfix">
                 <div>
                     <strong>{{ this.item.name }}</strong><br/>
@@ -41,12 +41,19 @@
     </div>
     <hr>
     <div class="text-right">
-        <form action="/cart/checkout" method="POST" >
+        <form action="/cart/checkout" method="GET">
             <input type="submit" class="btn btn-success " value="Check Out"></input>
         </form>
-    </div>
+           
+    </div>  
 {{else}}
     Your shopping cart is empty.
+    <br>
+    <br>
+    <br>
+    <div class="text-right">
+        <a href="/products"><button  type="button" class="btn primary">BACK TO SHOPPING</button></a>
+    </div>
 {{/if}}
     </div>
 </div>

@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Khách Hàng + {{user.name}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+
 {{>navbar}}
+<body>
 <div class="container col-sm-3 col-sm-offset-1">
   <div class="list-group">
-    <a class="list-group-item text-center" data-toggle="tab"><img src="{{user.avatar}}" name = "avatar" height="150px" width="150px" class="img-circle text-center" alt="Cinque Terre"><a>
+    <a class="list-group-item text-center" data-toggle="tab"><img src="{{this.user.avatar}}" name = "avatar" height="150px" width="150px" class="img-circle text-center" alt="Cinque Terre"><a>
     <a href="#thongtintaikhoan" class="list-group-item " data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Thông tin tài khoản</a>
     <a href="#quanlymatkhau" class="list-group-item" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Quản lý mật khẩu</a>
     <a href="/logout" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span> Thoát</a>
@@ -21,17 +12,17 @@
 <div class="tab-content col-sm-6 col-sm-offset-0">
   <div id="thongtintaikhoan" class="tab-pane fade in active">
     <h3 class="text-center">THÔNG TIN TÀI KHOẢN</h3><br><br>
-    <form class="form-horizontal" action="/user/update/{{user._id}}" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="/user/update/{{this.user._id}}" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label class="control-label col-sm-2" for="ten">Tên:</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="ten" value="{{user.name}}" name="name">
+          <input type="text" class="form-control" id="ten" value="{{this.user.name}}" name="name">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Tuổi:</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="email" value="{{user.age}}" name="age">
+          <input type="text" class="form-control" id="email" value="{{this.user.age}}" name="age">
         </div>
       </div>
       <div class="form-group">
@@ -78,7 +69,6 @@
     </form>
   </div>
 </div>
-{{>footer}}
 
 </body>
-</html>
+{{>footer}}

@@ -15,7 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
-
+const Cart = require('./models/cartModel');
 
 //init routers
 var indexRouter = require('./routes/index');
@@ -44,22 +44,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}));
 
 // res.locals is an object passed to hbs engine
-app.use(function(req, res, next) {
-    res.locals.session = req.session;
-    next();
-});
+
 
 app.use(session({
     secret: "laksjdoiwahfalsnc21983ulkasdn",
     resave: true,
-    saveUninitialized: true,
+    rolling: true,
+    saveUninitialized: false,
     store: new MongoStore({
         url: process.env.URI,
         dbName: 'BookStore',
@@ -74,6 +67,11 @@ app.use(passport.session());
 app.use(flash());
 require('./utils/passport')(passport);
 
+app.use(function(req, res, next) {
+    res.locals.user = req.user || null;
+    res.locals.session = req.session;
+    next();
+});
 
 app.use('/', indexRouter);
 app.use('/products', productsRouter);

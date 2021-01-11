@@ -12,6 +12,7 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect: '/login',
     failureFlash: true
 }));
+
 router.post('/signup', passport.authenticate('local-signup', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/signup',
@@ -19,7 +20,14 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 router.get('/logout', function(req, res) {
+
     req.logout();
+    // Nếu không destroy session thì sau khi log out đơn hàng vẫn lưu lại.
+    if (req.session) {
+        req.session.destroy();
+    }
+    // Clear cookie
+    res.clearCookie(this.cookie, { path: '/' });
     res.redirect('/');
 });
 

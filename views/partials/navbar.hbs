@@ -65,10 +65,10 @@
 <!-- Menu -->
 <nav id="menu">
     <h2>Menu</h2>
-    {{#if user}}
+    {{#if this.user}}
 <ul>
         <li><a href="/" class="{{#if active_home}}active{{/if}}">Home</a></li>
-        <li><a href="/user/{{_id}}"class="{{#if active_profile}}active{{/if}}">{{user.name}}'s Profile</a></li>
+        <li><a href="/user/"class="{{#if active_profile}}active{{/if}}">{{this.user.name}}'s Profile</a></li>
         <li><a href="/products" class="{{#if active_products}}active{{/if}}">Products</a></li>
         <li><a href="/logout"></a>Log Out</li>
 </ul>

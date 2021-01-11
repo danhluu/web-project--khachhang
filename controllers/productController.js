@@ -13,7 +13,7 @@ exports.details = async(req, res, next) => {
         console.log(product_detail);
         const comments = await commentModel.loadComment(req.params.id, 1);
         const similar_products = await productModel.getSimilar(product_detail.categories, 3);
-        res.render('product_detail', { product_detail: product_detail, similar_products: similar_products, comments: comments, user: req.user, active_products: true });
+        res.render('product_detail', { product_detail: product_detail, similar_products: similar_products, comments: comments, active_products: true });
     } catch (error) {
         next(createErr(404))
     }
@@ -54,6 +54,5 @@ exports.getPage = async(req, res, next) => {
         currentPage: nPage,
         currentPageQuery: queryString.stringify(currentQuery),
         firstPageQuery: queryString.stringify(firstQuery),
-        user: req.user
     });
 }

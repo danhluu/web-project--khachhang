@@ -1,5 +1,4 @@
 var express = require('express');
-var passport = require('passport');
 var router = express.Router();
 var userController = require('../controllers/userController');
 var ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
