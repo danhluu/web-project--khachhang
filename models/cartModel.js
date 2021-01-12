@@ -37,5 +37,14 @@ module.exports = function Cart(cart) {
             EditItem.quantity = newQ;
             EditItem.price = EditItem.item.price * newQ;
         }
-    }
+    };
+    /* create an array of the items in the cart */
+    this.generateArray = function() {
+        var arr = [];
+        for (var id in this.items) {
+            arr.push(this.items[id]);
+        }
+        return arr;
+    };
+
 };

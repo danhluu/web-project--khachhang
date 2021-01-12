@@ -11,7 +11,7 @@ router.get('/edit', cartController.editQuantity);
 router.get('/checkout', ensureLoggedIn('/login'), cartController.checkOut);
 
 
-router.post('/done', ensureLoggedIn('/login'), cartController.insertBill)
+router.post('/checkout', ensureLoggedIn('/login'), cartController.saveBill)
 
 
 module.exports = router;
