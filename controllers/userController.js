@@ -1,6 +1,6 @@
-const { HttpError } = require('http-errors');
+const createErr = require('http-errors');
 const userModel = require('../models/userModel');
-
+const authModel = require('../models/authModel');
 exports.index = async(req, res, next) => {
     res.render('user', { active_profile: true });
 };
@@ -12,4 +12,8 @@ exports.updateOne = async(req, res, next) => {
         next(HttpError(404));
     }
     res.redirect("/user");
+}
+exports.updatePassword = async(req, res, next) => {
+    await authModel.updatePassword(req, req.body.matkhaucu, req.body.matkhaumoi);
+    res.render('user', { message: req.flash('updateMessage') });
 }

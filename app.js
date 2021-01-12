@@ -16,6 +16,7 @@ var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 const Cart = require('./models/cartModel');
+const ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
 
 //init routers
 var indexRouter = require('./routes/index');
@@ -76,7 +77,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartRouter);
-app.use('/user', userRouter);
+app.use('/user', ensureLoggedIn('/login'), userRouter);
 //API routes
 app.use('/api/products', fetchPageRouter);
 app.use('/api/comments', commentsRouter);
