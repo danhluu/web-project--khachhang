@@ -1,6 +1,5 @@
 const productModel = require('../models/productModel');
 const Cart = require('../models/cartModel');
-const queryString = require('query-string');
 const createErr = require('http-errors');
 const billModel = require('../models/billModel');
 exports.add = async(req, res, next) => {
@@ -49,15 +48,23 @@ exports.editQuantity = async(req, res, next) => {
     res.redirect('/cart');
 }
 exports.checkOut = async(req, res, next) => {
-    const cart = new Cart(req.session.cart);
     res.render('checkout', {
         title: 'Book Store',
-        products: cart.getItems(),
-        totalPrice: cart.totalPrice,
     });
 }
 
-exports.insertBill = async(req, res, next) => {
-    const id = await billModel.productBill(req, res, next);
-    await billModel.createBill(req, id);
+exports.saveBill = async(req, res, next) => {
+    var cart = new Cart(req.session.cart);
+    products = cart.generateArray();
+    try {
+        await billModel.createBill(products, req.user, req.body);
+        req.cart = null;
+        var cart = new Cart({});
+        req.session.cart = cart;
+
+        // redirect to history
+        res.redirect('/');
+    } catch (error) {
+        next(createErr(404));
+    }
 }

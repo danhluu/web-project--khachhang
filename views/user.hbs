@@ -1,16 +1,19 @@
 
 {{>navbar}}
 <body>
+  <div class="row">
+
+
 <div class="container col-sm-3 col-sm-offset-1">
   <div class="list-group">
     <a class="list-group-item text-center" data-toggle="tab"><img src="{{this.user.avatar}}" name = "avatar" height="150px" width="150px" class="img-circle text-center" alt="Cinque Terre"><a>
-    <a href="#thongtintaikhoan" class="list-group-item " data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Thông tin tài khoản</a>
+    <a href="#thongtintaikhoan" class="list-group-item active show" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Thông tin tài khoản</a>
     <a href="#quanlymatkhau" class="list-group-item" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Quản lý mật khẩu</a>
     <a href="/logout" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span> Thoát</a>
   </div>
 </div>
 <div class="tab-content col-sm-6 col-sm-offset-0">
-  <div id="thongtintaikhoan" class="tab-pane fade in active">
+  <div id="thongtintaikhoan" class="tab-pane fade in active show">
     <h3 class="text-center">THÔNG TIN TÀI KHOẢN</h3><br><br>
     <form class="form-horizontal" action="/user/update/{{this.user._id}}" method="POST" enctype="multipart/form-data">
       <div class="form-group">
@@ -69,6 +72,6 @@
     </form>
   </div>
 </div>
-
+  </div>
 </body>
 {{>footer}}
