@@ -1,6 +1,25 @@
 @import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
-
+#minprice{
+	width: 80px;
+	margin-left: 1em;
+}
+#maxprice{
+	width: 80px;
+	margin-left:1em;
+}
+#pricesearch{
+	margin-left:1em;
+	
+}
+#newQ{
+	width: 80px;
+	margin-right:1em;
+}
+#search-form{
+	margin-bottom: 0;
+}
+}
 .form-filter{
 	margin-right:30px;
 }
@@ -2467,7 +2486,8 @@ input, select, textarea {
 	input[type="password"],
 	input[type="email"],
 	select {
-		height: 3em;
+		height: 2em;
+		margin-left:20px;
 	}
 
 	textarea {
@@ -3591,3 +3611,5 @@ input, select, textarea {
 			}
 
 		}
+
+	
