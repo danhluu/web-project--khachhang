@@ -20,7 +20,6 @@ exports.add = async(req, email, password) => {
     await userCollection.insertOne(userInfo);
     return;
 }
-
 exports.getId = async(id) => {
     const user = await db().collection('user').findOne({ _id: ObjectId(id) });
     return user;
@@ -40,5 +39,9 @@ exports.updatePassword = async(req, oldPassword, newPassword) => {
     } else {
         return req.flash('updateMessage', 'Khong thanh cong');
     }
-
+}
+exports.isUserExist=async(_email)=>{
+    const user = await db().collection('user').findOne({email: _email });
+    if (user) return true;
+        else return false;
 }

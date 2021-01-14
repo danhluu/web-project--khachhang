@@ -63,7 +63,7 @@ exports.saveBill = async(req, res, next) => {
         var cart = new Cart({});
         req.session.cart = cart;
         // redirect to history
-        res.redirect('/');
+        res.redirect('/user');
     } catch (error) {
         next(createErr(404));
     }

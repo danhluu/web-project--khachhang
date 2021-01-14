@@ -41,3 +41,17 @@ var checkIsBigger = function() {
     document.getElementById('pricesearch').disabled = false;
   }
 }
+
+function checkUserExist(){
+  const email=document.getElementById('email').value;
+  $.getJSON('api/users/is-user-exist?email='+email, 
+  function(data) {
+      if (data==true){
+        document.getElementById('user-check').innerHTML="&nbsp;&nbsp;is not available";
+        $('#user-check').css("color", "red");
+      }else{
+        document.getElementById('user-check').innerHTML="&nbsp;&nbsp;is available";
+        $('#user-check').css("color", "green");
+      }
+  });
+}
