@@ -1,6 +1,7 @@
 const { db } = require('../db/db');
 const { ObjectID } = require('mongodb');
 const createErr = require('http-errors');
+const { ExpectationFailed } = require('http-errors');
 
 exports.productBill = async(req, res, next) => {
     const productBill = db().collection('productBill');
@@ -31,6 +32,7 @@ exports.createBill = async(cart, user, shipping_info) => {
         qty = Number(cart.products[i].quantity);
         item = {
             _id: cart.products[i].item._id,
+            productName: cart.products[i].item.name,
             price: price,
             quantity: qty,
             currency: "USD",
@@ -42,16 +44,22 @@ exports.createBill = async(cart, user, shipping_info) => {
             updateDoc.items.push(item);
         }
     }
-    try { await billsCollection.insertOne(updateDoc); } catch (error) {
-        next(createErr(404));
-    }
+    await billsCollection.insertOne(updateDoc);
 }
 exports.getUserBill = async(user_id) => {
     const billsCollection = db().collection('bill');
-    try {
-        userBill = await billsCollection.findOne({ user_id: ObjectID(user_id) })
-        return userBill;
-    } catch (error) {
-        next(createErr(404));
+
+    let userBills = await billsCollection.find({ user_id: ObjectID(user_id) }).toArray();
+    for (let i in userBills) {
+        userBills[i].time = ObjectID(userBills[i]._id).getTimestamp();
     }
+    console.log(userBills);
+    return userBills;
+
+}
+exports.packageReceived = async(package_id) => {
+    let updateDoc = {
+        status: 'Received'
+    }
+    await db().collection('bill').updateOne({ _id: ObjectID(package_id) }, updateDoc);
 }
