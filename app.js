@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session({
-    secret: "laksjdoiwahfalsnc21983ulkasdn",
+    secret: process.env.session_secret,
     resave: true,
     rolling: true,
     saveUninitialized: false,
