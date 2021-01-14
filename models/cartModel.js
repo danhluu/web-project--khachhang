@@ -30,7 +30,6 @@ module.exports = function Cart(cart) {
             this.remove(id);
         } else {
             const EditItem = this.items[id];
-            console.log(EditItem);
             this.totalPrice = this.totalPrice - EditItem.price + EditItem.item.price * newQ;
             this.totalItems = this.totalItems - EditItem.quantity + newQ;
             EditItem.quantity = newQ;

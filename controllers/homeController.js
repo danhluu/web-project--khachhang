@@ -1,6 +1,5 @@
 const productModel = require('../models/productModel');
-const userModel =require('../models/userModel');
-
+const userModel = require('../models/userModel');
 /* GET home page. */
 exports.index = async(req, res, next) => {
     const products = await productModel.getMax();
@@ -15,23 +14,30 @@ exports.signup = (req, res, next) => {
     res.render('signup', { message: req.flash('signupMessage') });
 }
 
-exports.forgot = (req,res,next) =>{
-    res.render('forgot');
-    
+exports.forgot = (req, res, next) => {
+    res.render('forgot', { message: req.flash('message') });
+
 }
-exports.sendForgot = async(req,res,next) =>{
-    console.log('toi dya roi');
-    await userModel.sendMail(req,req.body.email);
-    res.redirect('/forgot');
+exports.sendForgot = async(req, res, next) => {
+    await userModel.sendMail(req, req.body.email);
+    // res.json("Dang trong qua trinh sua chua");
+    res.render('forgot', { message: req.flash('message') });
 }
-exports.reset= async(req,res)=>{
-    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-      if (!user) {
-        req.flash('error', 'Password reset token is invalid or has expired.');
-        return res.redirect('/forgot');
-      }
-      res.render('reset', {
-        user: req.user
-      });
+exports.reset = async(req, res) => {
+    user = await userModel.findToken(req.params.token, { $gt: Date.now() })
+    if (!user) {
+        req.flash('message', 'Password reset token is invalid or has expired.');
+        res.redirect('/forgot');
+    }
+    res.render('reset', { user: req.user });
+}
+exports.resetPassword = async(req, res) => {
+    let user = await userModel.resetPassword(req.params.token, { $gt: Date.now() }, req.body.newPassword)
+    if (!user) {
+        req.flash('message', 'Password reset token is invalid or has expired.');
+        return res.redirect('back');
+    }
+    req.logIn(user, function(err) {
+        done(err, user);
     });
 }

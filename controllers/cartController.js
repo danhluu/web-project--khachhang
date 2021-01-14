@@ -9,7 +9,6 @@ exports.add = async(req, res, next) => {
         const cart = new Cart(req.session.cart ? req.session.cart : {});
         const product = await productModel.get(productId);
         cart.add(product, productId, quantity);
-        console.log(cart);
         req.session.cart = cart;
         const refreshUrl = '/products/' + productId;
         res.redirect(refreshUrl);

@@ -25,7 +25,7 @@ exports.getId = async(id) => {
     const user = await db().collection('user').findOne({ _id: ObjectId(id) });
     return user;
 }
-exports.updatePassword = async(req, oldPassword, newPassword) => {
+exports.updatePassword = async(user, oldPassword, newPassword) => {
     const userCollection = db().collection('user');
     if (oldPassword === newPassword) {
         password = await bcrypt.hashSync(newPassword, bcrypt.genSaltSync(8));
@@ -35,10 +35,10 @@ exports.updatePassword = async(req, oldPassword, newPassword) => {
                 password: password
             },
         };
-        await userCollection.updateOne({ _id: ObjectId(req.user._id) }, updateDoc, options);
-        return req.flash('updateMessage', 'Thanh cong');
+        await userCollection.updateOne({ _id: ObjectId(user._id) }, updateDoc, options);
+        return 'Thanh cong'
     } else {
-        return req.flash('updateMessage', 'Khong thanh cong');
+        return 'Khong thanh cong'
     }
 
 }
