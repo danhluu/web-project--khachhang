@@ -1,10 +1,11 @@
-var express = require('express');
-var passport = require('passport');
-var router = express.Router();
-var homeController = require('../controllers/homeController');
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+const homeController = require('../controllers/homeController');
+const ensureLoggedOut = require("connect-ensure-login").ensureLoggedOut;
 
 router.get('/', homeController.index);
-router.get('/login', homeController.login);
+router.get('/login', ensureLoggedOut(), homeController.login);
 router.get('/signup', homeController.signup);
 
 router.post('/login', passport.authenticate('local-login', {
