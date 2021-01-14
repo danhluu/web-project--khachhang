@@ -53,13 +53,12 @@ exports.getUserBill = async(user_id) => {
     for (let i in userBills) {
         userBills[i].time = ObjectID(userBills[i]._id).getTimestamp();
     }
-    console.log(userBills);
     return userBills;
 
 }
 exports.packageReceived = async(package_id) => {
     let updateDoc = {
-        status: 'Received'
+        $set: { status: 'Received', }
     }
     await db().collection('bill').updateOne({ _id: ObjectID(package_id) }, updateDoc);
 }
