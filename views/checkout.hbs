@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-md mb">
                             <label for="fullName">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="Enter your Full Name" name="name" value="{{user.name}}" required>
+                            <input type="text"  class="form-control" id="fullName" pattern="[^0-9@\\/?]*" title="Chỉ chấp nhận tên hợp lệ" placeholder="Enter your Full Name" name="name" value="{{user.name}}" required >
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>

@@ -31,7 +31,7 @@ exports.getUserBill = async(req, res, next) => {
 exports.packageReceived = async(req, res, next) => {
     try {
         await billModel.packageReceived(req.params.id);
-        res.redirect('/user');
+        res.redirect('/');
     } catch (error) {
         next(createErr(404));
     }

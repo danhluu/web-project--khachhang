@@ -5,12 +5,13 @@
 
         <div class="image main">
             <img src="images/banner-image-6-1920x500.jpg" class="img-fluid" alt="" />
+            
         </div>
             <!-- Search form -->
             <form id="search-form" class="form-inline active-pink-3 active-pink-4 form-inline filter-form" method="GET">
                 <div class="form-group form-filter justify-content-start" id="searchbar">
-                    <input class="search-box" type="text" placeholder="Search for author or book's name"
-                        aria-label="Search" name="search">
+                        <input class="search-box" type="text" placeholder="Search for author or book's name"
+                            aria-label="Search" name="search">
                 </div>
                 <div class="form-group form-filter">
                     <select class="mdb-select md-form colorful-select dropdown-primary justify-content-center categories-dropdown" name="category">
@@ -27,16 +28,16 @@
                     </select>
                 </div>
                 <div class="form-group form-filter justify-content-start" id="price-range">
-                    <input class="number-input" id="minprice" type="number" placeholder="min-price"
+                    <input class="number-input" id="minprice" type="text" placeholder="min-price" pattern="(199|[0-1]?[0-9]?[0-9])" title="Giá trị khoảng từ 0 ~ 199" onkeyup="checkIsBigger()"
                         aria-label="minprice" name="min-price" min="0" max="200">
-                    <input class="number-input" id="maxprice" type="number" placeholder="max-price"
+                    <input class="number-input" id="maxprice" type="text" placeholder="max-price" pattern="(199|[0-1]?[0-9]?[0-9])" title="Giá trị khoảng từ 0 ~ 199" onkeyup="checkIsBigger()"
                         aria-label="maxprice" name="maxprice" min="0" max="200">
                 </div>
                 <div class="form-group form-filter">
-                    <input class="primary search-button" type="submit" value="Tìm kiếm">
+                    <input class="primary search-button" type="submit" value="Tìm kiếm" id="pricesearch">
                 </div>
-
             </form>
+             <div style="height: 2em;"><span id="hidden" style="display: none; font-weight:bold; color:red; float:right; clear:both; " >Max Price must be equal or bigger than Min Price</span></div>
         <nav>
             <ul class="pagination justify-content-end pagination-controller">
                 {{#if hasPreviousPage}}

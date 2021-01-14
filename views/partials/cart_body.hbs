@@ -19,9 +19,9 @@
                     <form method="GET" action="/cart/edit">
                     <input type="hidden" id="bookiD" name="bookiD" value="{{this.item._id}}">
                         <span>Quantity:
-                            <input id="newQ" type="number" class="primary number-input" value="{{this.quantity}}"
-                            aria-label="newQ" name="newQ" min="0" max="200">
-                            <input type="submit" class="primary" value="Apply">
+                            <input id="newQ" type="text" class="primary number-input" value="{{this.quantity}}" pattern="(199|[0-1]?[0-9]?[0-9])" title="Giá trị khoảng từ 0 ~ 199"
+                            aria-label="newQ" name="newQ">
+                            <input type="submit" class="primary" value="Apply" style="margin-top:1em;">
                         </span>
                     </form>
                 </div>

@@ -22,3 +22,22 @@ var checkUser = function() {
       document.getElementById('userUpdate').disabled = true;
   }
 }
+var checkIsBigger = function() {
+  if(document.getElementById('maxprice').value!=null){
+    if(document.getElementById('minprice').value!=null)
+    document.getElementById('hidden').style.display = 'none';
+    document.getElementById('pricesearch').disabled = false;
+}
+  if(document.getElementById('minprice').value!=null){
+    if( parseInt(document.getElementById('maxprice').value) < parseInt(document.getElementById('minprice').value)){
+      document.getElementById('pricesearch').disabled = true;
+      document.getElementById('hidden').style.display = 'block';
+    }else{
+      document.getElementById('hidden').style.display = 'none';
+      document.getElementById('pricesearch').disabled = false;
+    }
+  }else{
+    document.getElementById('hidden').style.display = 'none';
+    document.getElementById('pricesearch').disabled = false;
+  }
+}
