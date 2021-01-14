@@ -11,9 +11,8 @@ exports.productBill = async(req, res, next) => {
     return objectID;
 }
 
-exports.createBill = async(products, user, shipping_info) => {
+exports.createBill = async(cart, user, shipping_info) => {
     const billsCollection = db().collection('bill');
-    const objectID = new ObjectID();
     let updateDoc = {
         user_id: user._id,
         receiver: shipping_info.name,
@@ -22,26 +21,37 @@ exports.createBill = async(products, user, shipping_info) => {
         country: shipping_info.country,
         state: shipping_info.state,
         zipcode: shipping_info.zip,
-        cart_id: objectID,
-        item_list: {
-            items: []
-        },
+        items: [{}],
+        totalPrice: cart.totalPrice,
         status: 'Pending',
     }
-    for (let i = 0, len = products.length; i < len; i++) {
-        let price = parseFloat(products[i].price);
+    for (let i = 0, len = cart.products.length; i < len; i++) {
+        let price = parseFloat(cart.products[i].price);
         price = String(price.toFixed(2));
-        qty = Number(products[i].quantity);
+        qty = Number(cart.products[i].quantity);
         item = {
-            _id: products[i].item._id,
+            _id: cart.products[i].item._id,
             price: price,
             quantity: qty,
             currency: "USD",
         };
+        if (i == 0) {
+            updateDoc.items[0] = item;
+        } else {
 
-        updateDoc.item_list.items.push(item);
+            updateDoc.items.push(item);
+        }
     }
     try { await billsCollection.insertOne(updateDoc); } catch (error) {
+        next(createErr(404));
+    }
+}
+exports.getUserBill = async(user_id) => {
+    const billsCollection = db().collection('bill');
+    try {
+        userBill = await billsCollection.findOne({ user_id: ObjectID(user_id) })
+        return userBill;
+    } catch (error) {
         next(createErr(404));
     }
 }

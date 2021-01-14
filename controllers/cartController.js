@@ -56,8 +56,9 @@ exports.checkOut = async(req, res, next) => {
 exports.saveBill = async(req, res, next) => {
     var cart = new Cart(req.session.cart);
     products = cart.generateArray();
+    totalPrice = cart.totalPrice;
     try {
-        await billModel.createBill(products, req.user, req.body);
+        await billModel.createBill({ products, totalPrice }, req.user, req.body);
         req.cart = null;
         var cart = new Cart({});
         req.session.cart = cart;

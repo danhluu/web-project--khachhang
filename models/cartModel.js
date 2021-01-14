@@ -22,7 +22,6 @@ module.exports = function Cart(cart) {
         for (var id in this.items) {
             arr.push(this.items[id]);
         }
-        console.log(arr);
         return arr;
     };
 

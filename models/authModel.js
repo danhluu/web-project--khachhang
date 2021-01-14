@@ -22,7 +22,6 @@ exports.add = async(req, email, password) => {
 }
 
 exports.getId = async(id) => {
-    console.log("Get ID");
     const user = await db().collection('user').findOne({ _id: ObjectId(id) });
     return user;
 }
