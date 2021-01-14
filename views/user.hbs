@@ -1,37 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Khách Hàng + {{user.name}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+
 {{>navbar}}
+<script type='text/javascript' src="/assets/js/confirmPass.js"></script>
+</script>
+<body>
+  <div class="row">
+
+
 <div class="container col-sm-3 col-sm-offset-1">
   <div class="list-group">
-    <a class="list-group-item text-center" data-toggle="tab"><img src="{{user.avatar}}" name = "avatar" height="150px" width="150px" class="img-circle text-center" alt="Cinque Terre"><a>
-    <a href="#thongtintaikhoan" class="list-group-item " data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Thông tin tài khoản</a>
-    <a href="#quanlymatkhau" class="list-group-item" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Quản lý mật khẩu</a>
+    <a class="list-group-item text-center" data-toggle="tab"><img src="{{this.user.avatar}}" name = "avatar" height="150px" width="150px" class="img-circle text-center" alt="Cinque Terre"><a>
+    <a href="#thongtintaikhoan" class="list-group-item active show" data-toggle="tab">Thông tin tài khoản</a>
+    <a href="#quanlymatkhau" class="list-group-item" data-toggle="tab"> Quản lý mật khẩu</a>
+    <a href="#lichsudathang" class="list-group-item" data-toggle="tab"> Lịch sử đặt hàng</a>
     <a href="/logout" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span> Thoát</a>
   </div>
 </div>
-<div class="tab-content col-sm-6 col-sm-offset-0">
-  <div id="thongtintaikhoan" class="tab-pane fade in active">
+<div class="tab-content col-sm-9 col-sm-offset-0">
+  <div id="thongtintaikhoan" class="tab-pane fade in active show">
     <h3 class="text-center">THÔNG TIN TÀI KHOẢN</h3><br><br>
-    <form class="form-horizontal" action="/user/update/{{user._id}}" method="POST" enctype="multipart/form-data">
+    {{#if message }}
+     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{{message}}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+    {{/if}}
+    <form class="form-horizontal" action="/user/update/{{this.user._id}}" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label class="control-label col-sm-2" for="ten">Tên:</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="ten" value="{{user.name}}" name="name">
+          <input type="text" class="form-control" id="ten" value="{{this.user.name}}" name="name">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Tuổi:</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="email" value="{{user.age}}" name="age">
+          <input type="text" class="form-control" id="email" value="{{this.user.age}}" name="age">
         </div>
       </div>
       <div class="form-group">
@@ -52,33 +57,70 @@
     </form>
   </div>
   <div id="quanlymatkhau" class="tab-pane fade">
-    <form class="form-horizontal" action="/action_page.php">
+    <form class="form-horizontal" action="/user/updatepassword" method="POST">
       <h3 class="text-center">QUẢN LÝ MẬT KHẨU</h3><br><br>
       <div class="form-group">
         <label class="control-label col-sm-3" for="matkhaucu">Mật khẩu cũ:*</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="matkhaucu" placeholder="Nhập mật khẩu cũ" name="matkhaucu">
+          <input  class="form-control" id="matkhaucu"type="password" placeholder="Nhập mật khẩu cũ" name="matkhaucu">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-3" for="matkhaumoi">Mật khẩu mới:*</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="matkhaumoi" placeholder="Nhập mật khẩu mới" name="matkhaumoi">
+          <input  class="form-control" id="matkhaumoi"type="password" placeholder="Nhập mật khẩu mới" name="matkhaumoi"onkeyup='checkUser();'>
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-3" for="nhaplaimatkhau">Nhập lại mật khẩu:*</label>
         <div class="col-sm-8">          
-          <input type="text" class="form-control" id="nhaplaimatkhau" placeholder="Nhập lại mật khẩu mới" name="nhaplaimatkhau">
+          <input  class="form-control" id="nhaplaimatkhau"type="password" placeholder="Nhập lại mật khẩu mới" name="nhaplaimatkhau"onkeyup='checkUser();'>
+          <span id='confirmMessage'></span>
         </div>
       </div><br><br>
       <div class="text-center">
-        <button type="button" class="btn btn-primary">Cập nhật</button>
+        <button type="submit" class="btn btn-primary" id="userUpdate">Cập nhật</button>
       </div><br><br>
     </form>
   </div>
-</div>
-{{>footer}}
+  <div class="tab-pane fade" id = "lichsudathang">
+    {{#if userBills}}
+      {{#each userBills }}
+  
+    <div class="card d-flex flex-row p-3" >
+                {{!-- <img style="object-fit: cover ;" src="" height="128px" width="128px"> --}}
+      <div class="card" style="width:100%">
+          <h5 class="card-header d-flex justify-content-center"> {{status}}</h5>
+          <div class="card-body">
+              <h5 class="card-title">Địa chỉ nhận hàng: {{address}}</h5>
+              <h5 class="card-title">Đã đặt lúc: {{time}}</h5>
 
+              {{#each items}}
+              <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Sản phẩm: {{productName}}</h5>
+                <h5 class="card-title">Số lượng: {{quantity}}</h5>
+                <h5 class="card-title">Giá: {{price}}</h5>
+              </div>
+              </div>
+              {{/each}}
+              <h5 class="card-text">Tổng tiền: {{totalPrice}}</h5>
+          </div>
+      </div>
+            <div class="d-flex align-items-center  justify-content-lg-end">
+              <form action="/user/received/{{_id}}" method="POST">
+                <button type="submit" class=" btn btn-register " style="margin-bottom:0!important; margin-right:10px!important;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+</svg></button>
+</form>
+            </div>
+        </div>
+        {{/each}}
+  </div>
+  {{else}}
+  <div> Quay lai mua hang nhe!</div>
+    {{/if}}
+</div>
+  </div>
 </body>
-</html>
+{{>footer}}

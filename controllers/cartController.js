@@ -1,7 +1,7 @@
 const productModel = require('../models/productModel');
 const Cart = require('../models/cartModel');
-const queryString = require('query-string');
 const createErr = require('http-errors');
+const billModel = require('../models/billModel');
 exports.add = async(req, res, next) => {
     try {
         const productId = req.params.id;
@@ -14,20 +14,21 @@ exports.add = async(req, res, next) => {
         const refreshUrl = '/products/' + productId;
         res.redirect(refreshUrl);
     } catch (error) {
-        next(createErr(404))
+        next(createErr(404));
     }
 };
-exports.getItems = async(req, res, next) => {
+exports.getCart = async(req, res, next) => {
     if (!req.session.cart) {
         return res.render('cart', {
-            products: null
+            products: null,
+
         });
     }
     const cart = new Cart(req.session.cart);
     res.render('cart', {
         title: 'Book Store',
         products: cart.getItems(),
-        totalPrice: cart.totalPrice
+        totalPrice: cart.totalPrice,
     });
 }
 exports.removeItem = async(req, res, next) => {
@@ -45,4 +46,25 @@ exports.editQuantity = async(req, res, next) => {
     cart.editQuantity(bookiD, newQ);
     req.session.cart = cart;
     res.redirect('/cart');
+}
+exports.checkOut = async(req, res, next) => {
+    res.render('checkout', {
+        title: 'Book Store',
+    });
+}
+
+exports.saveBill = async(req, res, next) => {
+    var cart = new Cart(req.session.cart);
+    products = cart.generateArray();
+    totalPrice = cart.totalPrice;
+    try {
+        await billModel.createBill({ products, totalPrice }, req.user, req.body);
+        req.cart = null;
+        var cart = new Cart({});
+        req.session.cart = cart;
+        // redirect to history
+        res.redirect('/');
+    } catch (error) {
+        next(createErr(404));
+    }
 }

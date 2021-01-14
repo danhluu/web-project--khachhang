@@ -12,14 +12,14 @@
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
-                            {{#if session.cart.totalItems }}
-                            <span>({{session.cart.totalItems}})</span>
+                            {{#if cart.totalItems }}
+                            <span>({{cart.totalItems}})</span>
                             {{/if}}
                         </a>
-                        {{#if session.cart.totalItems }}
+                        {{#if cart.totalItems }}
                         <div class="dropdown-menu">
                             <div class="cart">
-                                {{#each session.cart.items }}
+                                {{#each cart.items }}
                                 <div class="row">
                                     <div class="col-xs-6">
                                         {{ this.item.name }}
@@ -34,7 +34,7 @@
                                 {{/each}}
                                 <div class="row">
                                     <div class="text-right">
-                                        <div class="totalPrice">Total: ${{ session.cart.totalPrice }}</div>
+                                        <div class="totalPrice">Total: ${{ cart.totalPrice }}</div>
                                         <a href="/cart" class="btn-success"><button>Go to cart</button></a>
                                     </div>
                                 </div>
@@ -65,12 +65,12 @@
 <!-- Menu -->
 <nav id="menu">
     <h2>Menu</h2>
-    {{#if user}}
+    {{#if this.user}}
 <ul>
         <li><a href="/" class="{{#if active_home}}active{{/if}}">Home</a></li>
-        <li><a href="/user/{{_id}}"class="{{#if active_profile}}active{{/if}}">{{user.name}}'s Profile</a></li>
+        <li><a href="/user/"class="{{#if active_profile}}active{{/if}}">{{this.user.name}}'s Profile</a></li>
         <li><a href="/products" class="{{#if active_products}}active{{/if}}">Products</a></li>
-        <li><a href="/logout"></a>Log Out</li>
+        <li><a href="/logout">Log Out</a></li>
 </ul>
     {{else}}
 <ul>

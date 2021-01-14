@@ -31,7 +31,6 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     if (user) {
-                        console.log('That email is already taken');
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
                         User.add(req, email, password);
@@ -54,6 +53,8 @@ module.exports = function(passport) {
                 let match = bcrypt.compareSync(password, user.password);
                 if (!match)
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                if (user.status == "deactivated")
+                    return done(null, false, req.flash('loginMessage', 'Your account has been deactivated! We will inform your account\'s status to your E-mail'));
                 return done(null, user);
             });
         }));

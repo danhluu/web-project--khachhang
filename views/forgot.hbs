@@ -81,27 +81,11 @@
                                         </button>
                                     </div>
                                 {{/if}}
-                                <form action="/login" method="POST">
+                                <form action="/sendforgot" method="POST">
                                     <div class="form-group"><label class="text-muted" for="email">Email address</label><input type="email" class="form-control" name= "email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required> <small id="emailHelp" class="form-text text-muted">We don't share email with anyone</small></div>
-                                    <div class="form-group"><label class="text-muted" for="password">Password</label><input type="password" class="form-control" name="password" id="password" placeholder="Password" required> <small id="passwordHelp" class="form-text text-muted">your password is saved in encrypted form</small></div>
-                                    <div class="form-group">
-                                        <div class="form-check"><input type="checkbox" class="form-check-input"><label class="form-check-label">Check me out</label></div>
-                                    </div> 
                                     <input type="submit" class="btn btn-primary"></input>
                                 </form>
-                                <style>
-                                    #forgotpass{
-                                        display: flex;
-                                    }
-                                    .sameforgotpass{
-                                        margin-left: 10px;
-                                    }
-                                </style>
-                                <div id="forgotpass">
-                                <a href="/signup" class="sameforgotpass">Dont' have an account??</a>
-                                <p class="sameforgotpass">or</p>
-                                <a href="/forgot" class="sameforgotpass">Forgot password?</a>
-                                </div>
+                                <a href="/login">Quay lại đăng nhập</a>
                             </div>
                             
                         </div>
