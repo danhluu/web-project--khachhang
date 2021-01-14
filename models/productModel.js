@@ -93,6 +93,5 @@ exports.updateViews = async(id, _views) => {
 exports.getMax = async() => {
     const productsCollection = db().collection('bookDetail');
     const products = await productsCollection.find().sort({ views: -1 }).limit(6).toArray();
-    console.log(products);
     return products;
 }

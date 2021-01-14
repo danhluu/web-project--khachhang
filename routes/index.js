@@ -7,7 +7,11 @@ const ensureLoggedOut = require("connect-ensure-login").ensureLoggedOut;
 router.get('/', homeController.index);
 router.get('/login', ensureLoggedOut(), homeController.login);
 router.get('/signup', homeController.signup);
+router.get('/forgot', homeController.forgot);
+router.get('/reset/:token', homeController.reset);
 
+router.post('/reset/:token', homeController.resetPassword);
+router.post('/forgot', homeController.sendForgot);
 router.post('/login', passport.authenticate('local-login', {
     successReturnToOrRedirect: '/user',
     failureRedirect: '/login',

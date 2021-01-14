@@ -3,7 +3,7 @@
                             <head>
                                 <meta charset='utf-8'>
                                 <meta name='viewport' content='width=device-width, initial-scale=1'>
-                                <title>Login</title>
+                                <title>Reset Password</title>
                                 <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
                                 <link href='' rel='stylesheet'>
                                 <style>body {
@@ -62,7 +62,6 @@
                                 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
                                 <script type='text/javascript'></script>
                             </head>
-{{>navbar}}
                             <body oncontextmenu='return false' class='snippet-body'>
                             <div id="content" class="flex">
     <div class="">
@@ -71,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header"><strong>Login to your account</strong></div>
+                            <div class="card-header"><strong>Reset your password</strong></div>
                             <div class="card-body">
                                 {{#if message}}
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -81,11 +80,19 @@
                                         </button>
                                     </div>
                                 {{/if}}
-                                <form action="/forgot" method="POST">
-                                    <div class="form-group"><label class="text-muted" for="email">Email address</label><input type="email" class="form-control" name= "email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required> <small id="emailHelp" class="form-text text-muted">We don't share email with anyone</small></div>
+                                <form method="POST">
+                                    <div class="form-group"><label class="text-muted" for="password">New Password</label><input type="password" class="form-control" name= "newPassword" id="password" placeholder="Enter your new password" required> <small id="emailHelp" class="form-text text-muted">We don't share this with anyone</small></div>
+                                    <div class="form-group"><label class="text-muted" for="confirmPassword">Confirm Password</label><input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required> <small id="passwordHelp" class="form-text text-muted">Your password is saved in encrypted form</small></div>
                                     <input type="submit" class="btn btn-primary"></input>
                                 </form>
-                                <a href="/login">Quay lại đăng nhập</a>
+                                <style>
+                                    #forgotpass{
+                                        display: flex;
+                                    }
+                                    .sameforgotpass{
+                                        margin-left: 10px;
+                                    }
+                                </style>
                             </div>
                             
                         </div>

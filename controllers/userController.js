@@ -11,12 +11,12 @@ exports.updateOne = async(req, res, next) => {
     try {
         await userModel.updateOne(req.params.id, req.file, req.body);
     } catch (err) {
-        next(HttpError(404));
+        next(createErr(404));
     }
     res.redirect("/user");
 }
 exports.updatePassword = async(req, res, next) => {
-    await authModel.updatePassword(req, req.body.matkhaucu, req.body.matkhaumoi);
+    req.flash('updateMessage', await authModel.updatePassword(req.user, req.body.matkhaucu, req.body.matkhaumoi))
     res.render('user', { message: req.flash('updateMessage') });
 }
 exports.getUserBill = async(req, res, next) => {
