@@ -5,23 +5,22 @@
     <!-- More comments -->
 
     <li id="comment-box" class="write-new">
-        {{#with product_detail}}
+       
         <form method="POST" onsubmit="return writeComment(this)">
+             {{#with product_detail}}
             <input type="hidden" name="bookId" value="{{_id}}">
-            {{#if user}}                
+             {{/with}}
+            {{#if user}}
+                <textarea placeholder="You are commenting as {{user.name}}" disabled></textarea>
+                {{else}}
+                <textarea placeholder="Write your name here if you haven't login" name="guestName"></textarea>
+            {{/if}}
             <textarea placeholder="Write your comment here" name="comment" required></textarea>
             <div class="center-box">
                 <input class="primary" type="submit" value="Submit">
             </div>
-            {{else}}
-            <textarea placeholder="You have to login to comment!" name="comment" disabled></textarea>
-            <div class="center-box">
-                <input class="primary" type="submit" value="Submit" disabled>
-            </div>
-            {{/if}}
-            
         </form>
-        {{/with}}
+       
 
     </li>
     {{#each comments}}
