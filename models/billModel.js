@@ -50,7 +50,7 @@ exports.getUserBill = async(user_id) => {
     for (let i in userBills) {
         userBills[i].time = ObjectID(userBills[i]._id).getTimestamp();
         if (userBills[i].status == 'Delivering')
-            userBills[i].isDelivering == true;
+            userBills[i].isDelivering = true;
     }
     return userBills;
 
