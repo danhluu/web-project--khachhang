@@ -117,7 +117,7 @@ exports.resetMail = async(req, email) => {
     // res.render('forgot')
 }
 
-exports.sendConfirmToken = async(email, token) => {
+exports.sendConfirmToken = async(req, email, token) => {
     const confirmEmail = {
         to: email,
         from: 'BookStore',
