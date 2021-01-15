@@ -7,7 +7,7 @@ const parser = require("../utils/multer");
 
 router.get('/', userController.getUserBill, userController.index);
 router.post('/update', parser.single('avatar'), userController.updateOne);
-router.post('/', userController.updatePassword, userController.getUserBill)
+router.post('/', userController.updatePassword)
 router.post('/received/:id', userController.packageReceived)
     //
 module.exports = router;

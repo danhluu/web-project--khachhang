@@ -63,7 +63,7 @@ exports.resetPassword = async(token, tokenExpires, newPassword) => {
             resetPasswordExpires: undefined
         }
     }
-    await usersCollection.updateOne({ _id: user._id }, updateDoc, { upsert: true });
+    await usersCollection.updateOne({ _id: ObjectId(user._id) }, updateDoc, { upsert: true });
     const confirmMail = {
         to: user.email,
         from: 'BookStore',
