@@ -46,6 +46,11 @@ exports.findToken = async(token, tokenExpires) => {
     let user = await usersCollection.findOne({ resetPasswordToken: token, resetPasswordExpires: tokenExpires })
     return user;
 }
+exports.findConfirmToken = async(token, tokenExpires) => {
+    const usersCollection = db().collection('user');
+    let user = await usersCollection.findOne({ confirmToken: token, confirmTokenExpires: tokenExpires })
+    return user;
+}
 
 exports.resetPassword = async(token, tokenExpires, newPassword) => {
     const usersCollection = db().collection('user');
@@ -132,7 +137,7 @@ exports.confirmedEmail = async(userId) => {
             status: 'active'
         }
     }
-    await usersCollection.updateOne({ _id: ObjectId(userId) }, updateDoc, { upsert: true });
+    await db().collection('user').updateOne({ _id: ObjectId(userId) }, updateDoc, { upsert: true });
 }
 exports.isUserExist = async(_email) => {
     const user = await db().collection('user').findOne({ email: _email });
