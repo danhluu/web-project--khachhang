@@ -1,13 +1,13 @@
 const { db } = require('../db/db');
 const { ObjectID } = require('mongodb');
 
-exports.productBill = async(req, res, next) => {
-    const productBill = db().collection('productBill');
-    const objectID = new ObjectID();
-    for (let index = 0; index < req.body.cart.length(); index++) {
-
+exports.increaseProductsSold = async(products) => {
+    for (let i = 0; i < products.length; i++) {
+        qty = Number(products[i].quantity);
+        console.log(qty);
+        console.log(products[i].item._id);
+        await db().collection('bookDetail').updateOne({ _id: ObjectID(products[i].item._id) }, { $inc: { sold: qty } }, { upsert: true })
     }
-    return objectID;
 }
 
 exports.createBill = async(cart, user, shipping_info) => {
@@ -46,10 +46,11 @@ exports.createBill = async(cart, user, shipping_info) => {
 }
 exports.getUserBill = async(user_id) => {
     const billsCollection = db().collection('bill');
-
     let userBills = await billsCollection.find({ user_id: ObjectID(user_id) }).toArray();
     for (let i in userBills) {
         userBills[i].time = ObjectID(userBills[i]._id).getTimestamp();
+        if (userBills[i].status == 'Delivering')
+            userBills[i].isDelivering == true;
     }
     return userBills;
 

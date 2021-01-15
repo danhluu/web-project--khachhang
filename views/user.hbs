@@ -104,6 +104,7 @@
                       <h5 class="card-text">Tổng tiền: {{totalPrice}}</h5>
                   </div>
               </div>
+              {{#if isDelivering}}       
                     <div class="d-flex align-items-center  justify-content-lg-end">
                       <form action="/user/received/{{_id}}" method="POST">
                         <button type="submit" class=" btn primary " style="margin-bottom:0!important; margin-right:10px!important;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -111,6 +112,7 @@
                         </svg></button>
                       </form>
                     </div>
+                     {{/if}}
               </div>
                 {{/each}}
           </div>
