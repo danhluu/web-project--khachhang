@@ -33,14 +33,14 @@ exports.reset = async(req, res) => {
         res.redirect('/forgot');
     }
 }
-exports.resetPassword = async(req, res) => {
-    let user = await authModel.resetPassword(req.params.token, { $gt: Date.now() }, req.body.newPassword)
-    if (!user) {
-        req.flash('message', 'Password reset token is invalid or has expired.');
-        return res.redirect('back');
+exports.resetPassword = async(req, res, next) => {
+    try {
+        await authModel.resetPassword(req.params.token, { $gt: Date.now() }, req.body.newPassword);
+        req.flash('loginMessage', 'Reset mat khau thanh cong!');
+        res.redirect('/login');
+    } catch (err) {
+        next(createErr(404))
     }
-    req.login(user)
-    res.redirect('/login');
 }
 exports.confirmEmail = async(req, res, next) => {
     let user;
@@ -51,5 +51,4 @@ exports.confirmEmail = async(req, res, next) => {
     } catch (error) {
         next(createErr(404));
     }
-
 }
