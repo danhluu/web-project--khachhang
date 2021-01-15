@@ -24,19 +24,23 @@ module.exports = function(passport) {
             passwordField: 'password',
             passReqToCallback: true,
         },
-        function(req, email, password, done) {
-            process.nextTick(function() {
-                User.get(email, function(err, user) {
-                    if (err) {
-                        return done(err);
+        async(req, email, password, done) => {
+            try {
+                let user = await User.findByEmail(email);
+                if (user) {
+                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                } else {
+                    let token = await User.register(req, email, password);
+                    try {
+                        await User.sendConfirmToken(email, token);
+                        return done(null, null, req.flash('signupMessage', 'A verification email has been sent to your E-mail.'))
+                    } catch {
+                        return done(null, null, req.flash('signupMessage', 'Can not send verification Email to your account!'))
                     }
-                    if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                    } else {
-                        User.add(req, email, password);
-                    }
-                });
-            });
+                }
+            } catch (error) {
+                return done(error);
+            }
         }));
 
     passport.use('local-login', new LocalStrategy({
@@ -44,10 +48,9 @@ module.exports = function(passport) {
             passwordField: 'password',
             passReqToCallback: true,
         },
-        function(req, email, password, done) {
-            User.get(email, function(err, user) {
-                if (err)
-                    return done(err);
+        async(req, email, password, done) => {
+            try {
+                let user = await User.findByEmail(email);
                 if (!user)
                     return done(null, false, req.flash('loginMessage', 'No user found.'));
                 let match = bcrypt.compareSync(password, user.password);
@@ -56,6 +59,8 @@ module.exports = function(passport) {
                 if (user.status == "deactivated")
                     return done(null, false, req.flash('loginMessage', 'Your account has been deactivated! We will inform your account\'s status to your E-mail'));
                 return done(null, user);
-            });
+            } catch (error) {
+                return done(error);
+            }
         }));
 }
