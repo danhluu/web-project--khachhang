@@ -10,7 +10,8 @@ exports.get = async(id) => {
 
 exports.updatePassword = async(user, oldPassword, newPassword) => {
     const userCollection = db().collection('user');
-    if (oldPassword === newPassword) {
+    let match = await bcrypt.compareSync(oldPassword, user.password)
+    if (match) {
         password = await bcrypt.hashSync(newPassword, bcrypt.genSaltSync(8));
         const options = { upsert: true };
         const updateDoc = {
@@ -19,9 +20,9 @@ exports.updatePassword = async(user, oldPassword, newPassword) => {
             },
         };
         await userCollection.updateOne({ _id: ObjectId(user._id) }, updateDoc, options);
-        return 'Thanh cong'
+        return 'Cap nhat mat khau thanh cong'
     } else {
-        return 'Khong thanh cong'
+        return 'Khong thanh cong vi ban nhap sai mat khau cu'
     }
 }
 
