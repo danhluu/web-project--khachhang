@@ -15,8 +15,8 @@ const LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
-const Cart = require('./models/cartModel');
 const ensureLoggedIn = require("connect-ensure-login").ensureLoggedIn;
+const Cart = require('./models/cartModel');
 
 //init routers
 var indexRouter = require('./routes/index');
@@ -40,7 +40,6 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.bodyParser());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -83,7 +82,7 @@ app.use('/user', ensureLoggedIn('/login'), userRouter);
 //API routes
 app.use('/api/products', fetchPageRouter);
 app.use('/api/comments', commentsRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/users', ensureLoggedIn('/login'), usersRouter);
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);

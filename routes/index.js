@@ -26,7 +26,6 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 router.get('/logout', function(req, res) {
-
     req.logout();
     // Nếu không destroy session thì sau khi log out đơn hàng vẫn lưu lại.
     if (req.session) {
