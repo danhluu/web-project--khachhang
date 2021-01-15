@@ -49,7 +49,7 @@ exports.getUserBill = async(user_id) => {
     let userBills = await billsCollection.find({ user_id: ObjectID(user_id) }).toArray();
     for (let i in userBills) {
         userBills[i].time = ObjectID(userBills[i]._id).getTimestamp();
-        if (userBills[i].status == "Pending")
+        if (userBills[i].status == 'Delivering')
             userBills[i].isDelivering = true;
     }
     return userBills;
