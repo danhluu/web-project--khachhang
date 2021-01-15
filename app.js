@@ -72,6 +72,7 @@ require('./utils/passport')(passport);
 app.use(function(req, res, next) {
     res.locals.user = req.user || null;
     res.locals.cart = new Cart(req.session.cart || []);
+    res.locals.userBills = req.session.userBills || null;
     next();
 });
 

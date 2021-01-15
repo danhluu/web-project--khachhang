@@ -23,7 +23,7 @@
                       </button>
                   </div>
             {{/if}}
-            <form class="form-horizontal" action="/user/update/{{this.user._id}}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="/user/update/" method="POST" enctype="multipart/form-data">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="ten">Tên:</label>
                 <div class="col-sm-8">          
@@ -54,7 +54,7 @@
             </form>
           </div>
           <div id="quanlymatkhau" class="tab-pane fade">
-            <form class="form-horizontal" action="/user/updatepassword" method="POST">
+            <form class="form-horizontal" method="POST">
               <h3 class="text-center">QUẢN LÝ MẬT KHẨU</h3><br><br>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="matkhaucu">Mật khẩu cũ:*</label>

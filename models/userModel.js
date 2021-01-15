@@ -42,6 +42,5 @@ exports.updateOne = async(id, imgInfo, userInfo) => {
             avatarID: imgInfo.filename,
         },
     };
-    const result = await usersCollection.updateOne(filter, updateDoc, options);
-    return result;
+    await usersCollection.updateOne(filter, updateDoc, options);
 }
