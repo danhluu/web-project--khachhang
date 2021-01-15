@@ -8,11 +8,18 @@
         {{#with product_detail}}
         <form method="POST" onsubmit="return writeComment(this)">
             <input type="hidden" name="bookId" value="{{_id}}">
-            <textarea placeholder="Write your name here if you haven't login" name="username"></textarea>
+            {{#if user}}                
             <textarea placeholder="Write your comment here" name="comment" required></textarea>
             <div class="center-box">
                 <input class="primary" type="submit" value="Submit">
             </div>
+            {{else}}
+            <textarea placeholder="You have to login to comment!" name="comment" disabled></textarea>
+            <div class="center-box">
+                <input class="primary" type="submit" value="Submit" disabled>
+            </div>
+            {{/if}}
+            
         </form>
         {{/with}}
 
