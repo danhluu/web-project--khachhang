@@ -8,7 +8,7 @@ exports.index = async(req, res, next) => {
 
 exports.updateOne = async(req, res, next) => {
     try {
-        await userModel.updateOne(req.params.id, req.file, req.body);
+        await userModel.updateOne(req.user._id, req.file, req.body);
     } catch (err) {
         next(createErr(404));
     }
@@ -21,7 +21,7 @@ exports.updatePassword = async(req, res, next) => {
 exports.getUserBill = async(req, res, next) => {
     try {
         let userBills = await billModel.getUserBill(req.user._id);
-        res.locals.userBills = userBills;
+        req.session.userBills = userBills;
         next();
     } catch (error) {
         next(createErr(404));

@@ -56,6 +56,7 @@ exports.saveBill = async(req, res, next) => {
     var cart = new Cart(req.session.cart);
     products = cart.generateArray();
     totalPrice = cart.totalPrice;
+
     try {
         await billModel.createBill({ products, totalPrice }, req.user, req.body);
         req.cart = null;
@@ -64,6 +65,16 @@ exports.saveBill = async(req, res, next) => {
         // redirect to history
         res.redirect('/user');
     } catch (error) {
+        next(createErr(404));
+    }
+}
+exports.increaseProductsSold = async(req, res, next) => {
+    try {
+        var cart = new Cart(req.session.cart);
+        products = cart.generateArray();
+        await billModel.increaseProductsSold(products);
+        next()
+    } catch (err) {
         next(createErr(404));
     }
 }

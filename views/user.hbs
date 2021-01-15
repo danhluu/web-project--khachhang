@@ -23,7 +23,7 @@
                       </button>
                   </div>
             {{/if}}
-            <form class="form-horizontal" action="/user/update/{{this.user._id}}" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="/user/update/" method="POST" enctype="multipart/form-data">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="ten">Tên:</label>
                 <div class="col-sm-8">          
@@ -54,7 +54,7 @@
             </form>
           </div>
           <div id="quanlymatkhau" class="tab-pane fade">
-            <form class="form-horizontal" action="/user/updatepassword" method="POST">
+            <form class="form-horizontal" method="POST">
               <h3 class="text-center">QUẢN LÝ MẬT KHẨU</h3><br><br>
               <div class="form-group">
                 <label class="control-label col-sm-3" for="matkhaucu">Mật khẩu cũ:*</label>
@@ -104,6 +104,7 @@
                       <h5 class="card-text">Tổng tiền: {{totalPrice}}</h5>
                   </div>
               </div>
+              {{#if isDelivering}}       
                     <div class="d-flex align-items-center  justify-content-lg-end">
                       <form action="/user/received/{{_id}}" method="POST">
                         <button type="submit" class=" btn primary " style="margin-bottom:0!important; margin-right:10px!important;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -111,6 +112,7 @@
                         </svg></button>
                       </form>
                     </div>
+                     {{/if}}
               </div>
                 {{/each}}
           </div>
