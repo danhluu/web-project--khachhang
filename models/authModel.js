@@ -35,7 +35,6 @@ exports.register = async(req, email, password) => {
     await userCollection.insertOne(userInfo);
     return token;
 }
-
 exports.getId = async(id) => {
     const user = await db().collection('user').findOne({ _id: ObjectId(id) });
     return user;
@@ -134,4 +133,9 @@ exports.confirmedEmail = async(userId) => {
         }
     }
     await usersCollection.updateOne({ _id: ObjectId(userId) }, updateDoc, { upsert: true });
+}
+exports.isUserExist = async(_email) => {
+    const user = await db().collection('user').findOne({ email: _email });
+    if (user) return true;
+    else return false;
 }
