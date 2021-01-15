@@ -45,9 +45,8 @@ exports.resetPassword = async(req, res) => {
 exports.confirmEmail = async(req, res, next) => {
     let user;
     try {
-        user = await authModel.findToken(req.params.token, { $gt: Date.now() });
+        user = await authModel.findConfirmToken(req.params.token, { $gt: Date.now() });
         await authModel.confirmedEmail(user._id);
-        req.login(user);
         res.redirect('/login');
     } catch (error) {
         next(createErr(404));

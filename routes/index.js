@@ -10,7 +10,7 @@ router.get('/signup', homeController.signup);
 router.get('/forgot', homeController.forgot);
 router.get('/reset/:token', homeController.reset);
 
-router.post('/confirm/:token', homeController.confirmEmail)
+router.get('/confirm/:token', homeController.confirmEmail)
 router.post('/reset/:token', homeController.resetPassword);
 router.post('/forgot', homeController.sendForgot);
 router.post('/login', passport.authenticate('local-login', {
