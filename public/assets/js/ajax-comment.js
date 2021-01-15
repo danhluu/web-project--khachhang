@@ -5,7 +5,7 @@ socket.on("Server-sent-data", function(data) {
 
 function writeComment(form) {
     const formdata = {
-        username: form.guestName.value,
+        username: form.username.value,
         postId: form.bookId.value,
         comment: form.comment.value,
         timestampt: Date.now()

@@ -1,7 +1,7 @@
 const commentModelAPI = require('../../models/commentModel');
 
 exports.writeComment = async(req, res, next) => {
-    const username = req.user.name || req.body.guestName;
+    const username = req.body.username;
     const postId = req.body.postId;
     const comment = req.body.comment;
     const timestampt = req.body.timestampt;
