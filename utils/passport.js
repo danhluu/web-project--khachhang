@@ -67,6 +67,8 @@ module.exports = function(passport) {
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                 if (user.status == "deactivated")
                     return done(null, false, req.flash('loginMessage', 'Your account has been deactivated! We will inform your account\'s status to your E-mail'));
+                if (user.status == "PendindConfirm")
+                    return done(null, false, req.flash('loginMessage', 'Your account has not been verificated yet'));
                 return done(null, user);
             } catch (error) {
                 return done(error);
