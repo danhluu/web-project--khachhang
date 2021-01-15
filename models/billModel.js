@@ -1,7 +1,5 @@
 const { db } = require('../db/db');
 const { ObjectID } = require('mongodb');
-const createErr = require('http-errors');
-const { ExpectationFailed } = require('http-errors');
 
 exports.productBill = async(req, res, next) => {
     const productBill = db().collection('productBill');

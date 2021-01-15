@@ -27,7 +27,7 @@ var cartRouter = require('./routes/cart');
 //init API routers
 var fetchPageRouter = require('./routes/api/products');
 var commentsRouter = require('./routes/api/comments');
-var usersRouter=require('./routes/api/users');
+var usersRouter = require('./routes/api/users');
 
 const { RequestTimeout } = require('http-errors');
 require('./db/db.js');
@@ -82,7 +82,7 @@ app.use('/user', ensureLoggedIn('/login'), userRouter);
 //API routes
 app.use('/api/products', fetchPageRouter);
 app.use('/api/comments', commentsRouter);
-app.use('/api/users',usersRouter);
+app.use('/api/users', usersRouter);
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
